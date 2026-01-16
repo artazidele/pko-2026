@@ -1,0 +1,219 @@
+{
+  "id" : 1,
+  "score" : "0hard/-13269soft",
+  "cars" : [ {
+    "id" : 1,
+    "number" : "AA0000",
+    "availableSize" : 6,
+    "garage" : {
+      "id" : 1,
+      "location" : {
+        "id" : 1,
+        "latitude" : 3.0,
+        "longitude" : 0.0
+      }
+    },
+    "driver" : {
+      "id" : 1,
+      "name" : null,
+      "surname" : null,
+      "timeWindow" : {
+        "id" : 1,
+        "from" : 32400,
+        "to" : 35000
+      },
+      "lunchTime" : 1800
+    },
+    "serviceTimeBefore" : 600,
+    "serviceTimeAfter" : 600,
+    "serviceTimeBetween" : 600,
+    "possibleMileage" : 100.0,
+    "filledSize" : 0,
+    "visits" : [ {
+      "id" : 6,
+      "item" : null,
+      "visitType" : "SUPPLY",
+      "serviceTime" : 0,
+      "location" : {
+        "id" : 5,
+        "latitude" : 4.0,
+        "longitude" : 0.0
+      },
+      "car" : 1,
+      "previousVisit" : null,
+      "arrivalTime" : 32401
+    }, {
+      "id" : 5,
+      "item" : null,
+      "visitType" : "SUPPLY",
+      "serviceTime" : 0,
+      "location" : {
+        "id" : 5,
+        "latitude" : 4.0,
+        "longitude" : 0.0
+      },
+      "car" : 1,
+      "previousVisit" : 6,
+      "arrivalTime" : 32401
+    }, {
+      "id" : 4,
+      "item" : {
+        "id" : 3,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 5,
+            "latitude" : 4.0,
+            "longitude" : 0.0
+          }
+        },
+        "size" : 3,
+        "customer" : null,
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 0,
+      "location" : {
+        "id" : 4,
+        "latitude" : 3.0,
+        "longitude" : 1.0
+      },
+      "car" : 1,
+      "previousVisit" : 5,
+      "arrivalTime" : 32402
+    }, {
+      "id" : 3,
+      "item" : {
+        "id" : 3,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 5,
+            "latitude" : 4.0,
+            "longitude" : 0.0
+          }
+        },
+        "size" : 3,
+        "customer" : null,
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 0,
+      "location" : {
+        "id" : 4,
+        "latitude" : 3.0,
+        "longitude" : 1.0
+      },
+      "car" : 1,
+      "previousVisit" : 4,
+      "arrivalTime" : 32402
+    } ]
+  }, {
+    "id" : 2,
+    "number" : "BB1111",
+    "availableSize" : 5,
+    "garage" : {
+      "id" : 2,
+      "location" : {
+        "id" : 1,
+        "latitude" : 3.0,
+        "longitude" : 6.0
+      }
+    },
+    "driver" : {
+      "id" : 2,
+      "name" : null,
+      "surname" : null,
+      "timeWindow" : {
+        "id" : 2,
+        "from" : 28800,
+        "to" : 30000
+      },
+      "lunchTime" : 2700
+    },
+    "serviceTimeBefore" : 400,
+    "serviceTimeAfter" : 800,
+    "serviceTimeBetween" : 300,
+    "possibleMileage" : 80.0,
+    "filledSize" : 0,
+    "visits" : [ {
+      "id" : 2,
+      "item" : {
+        "id" : 2,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 5,
+            "latitude" : 4.0,
+            "longitude" : 0.0
+          }
+        },
+        "size" : 5,
+        "customer" : null,
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 0,
+      "location" : {
+        "id" : 3,
+        "latitude" : 4.0,
+        "longitude" : 4.0
+      },
+      "car" : 2,
+      "previousVisit" : null,
+      "arrivalTime" : 28802
+    }, {
+      "id" : 1,
+      "item" : {
+        "id" : 1,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 5,
+            "latitude" : 4.0,
+            "longitude" : 0.0
+          }
+        },
+        "size" : 6,
+        "customer" : null,
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 0,
+      "location" : {
+        "id" : 2,
+        "latitude" : 0.0,
+        "longitude" : 4.0
+      },
+      "car" : 2,
+      "previousVisit" : 2,
+      "arrivalTime" : 28806
+    } ]
+  } ],
+  "visits" : [ 1, 2, 3, 4, 5, 6 ],
+  "locations" : [ {
+    "id" : 1,
+    "latitude" : 3.0,
+    "longitude" : 0.0
+  }, {
+    "id" : 2,
+    "latitude" : 0.0,
+    "longitude" : 4.0
+  }, {
+    "id" : 3,
+    "latitude" : 4.0,
+    "longitude" : 4.0
+  }, {
+    "id" : 4,
+    "latitude" : 3.0,
+    "longitude" : 1.0
+  }, {
+    "id" : 4,
+    "latitude" : 3.0,
+    "longitude" : 1.0
+  }, {
+    "id" : 5,
+    "latitude" : 4.0,
+    "longitude" : 0.0
+  } ]
+}

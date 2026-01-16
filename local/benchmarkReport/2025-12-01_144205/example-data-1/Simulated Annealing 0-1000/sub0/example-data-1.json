@@ -1,0 +1,2221 @@
+{
+  "id" : 0,
+  "score" : "-147461hard/-110569soft",
+  "cars" : [ {
+    "id" : 1,
+    "number" : "LV - 112",
+    "availableSize" : 24956945,
+    "garage" : {
+      "id" : 1,
+      "location" : {
+        "id" : 1,
+        "latitude" : 56.939102882603606,
+        "longitude" : 24.09898920831923
+      }
+    },
+    "driver" : {
+      "name" : "Name1",
+      "surname" : "Surname1",
+      "id" : 1,
+      "timeWindow" : {
+        "id" : 1,
+        "from" : 33929,
+        "to" : 60121
+      },
+      "lunchTime" : 2601
+    },
+    "serviceTimeBefore" : 604,
+    "serviceTimeAfter" : 210,
+    "serviceTimeBetween" : 582,
+    "possibleMileage" : 150343.0,
+    "filledSize" : 0,
+    "visits" : [ ]
+  }, {
+    "id" : 2,
+    "number" : "LV - 213",
+    "availableSize" : 26005224,
+    "garage" : {
+      "id" : 2,
+      "location" : {
+        "id" : 2,
+        "latitude" : 56.96119864106267,
+        "longitude" : 24.028569654464615
+      }
+    },
+    "driver" : {
+      "name" : "Name2",
+      "surname" : "Surname2",
+      "id" : 2,
+      "timeWindow" : {
+        "id" : 2,
+        "from" : 33295,
+        "to" : 64867
+      },
+      "lunchTime" : 2657
+    },
+    "serviceTimeBefore" : 687,
+    "serviceTimeAfter" : 170,
+    "serviceTimeBetween" : 1183,
+    "possibleMileage" : 118553.0,
+    "filledSize" : 0,
+    "visits" : [ {
+      "id" : 21,
+      "item" : {
+        "id" : 21,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1679103,
+        "customer" : {
+          "name" : "Name21",
+          "surname" : "Surname21",
+          "id" : 21,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 47,
+            "from" : 33414,
+            "to" : 37269
+          } ],
+          "location" : {
+            "id" : 28,
+            "latitude" : 57.022390852755,
+            "longitude" : 24.18000691985928
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 414,
+      "location" : {
+        "id" : 60,
+        "latitude" : 56.960918454696376,
+        "longitude" : 24.027416817528472
+      },
+      "car" : 2,
+      "previousVisit" : null,
+      "arrivalTime" : 33426
+    }, {
+      "id" : 38,
+      "item" : {
+        "id" : 38,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 1331074,
+        "customer" : {
+          "name" : "Name6",
+          "surname" : "Surname6",
+          "id" : 6,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 17,
+            "from" : 34733,
+            "to" : 42117
+          } ],
+          "location" : {
+            "id" : 13,
+            "latitude" : 56.91180548618262,
+            "longitude" : 24.257364621404562
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 563,
+      "location" : {
+        "id" : 77,
+        "latitude" : 57.00188979066823,
+        "longitude" : 23.979321792318206
+      },
+      "car" : 2,
+      "previousVisit" : 21,
+      "arrivalTime" : 39317
+    }, {
+      "id" : 23,
+      "item" : {
+        "id" : 23,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1533564,
+        "customer" : {
+          "name" : "Name23",
+          "surname" : "Surname23",
+          "id" : 23,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 50,
+            "from" : 34736,
+            "to" : 41096
+          }, {
+            "id" : 51,
+            "from" : 79432,
+            "to" : 85828
+          }, {
+            "id" : 52,
+            "from" : 168860,
+            "to" : 176225
+          } ],
+          "location" : {
+            "id" : 30,
+            "latitude" : 56.94694647112997,
+            "longitude" : 24.035123385075345
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 173,
+      "location" : {
+        "id" : 62,
+        "latitude" : 57.0663053717266,
+        "longitude" : 23.972140858182872
+      },
+      "car" : 2,
+      "previousVisit" : 38,
+      "arrivalTime" : 40730
+    }, {
+      "id" : 28,
+      "item" : {
+        "id" : 28,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 1976306,
+        "customer" : {
+          "name" : "Name28",
+          "surname" : "Surname28",
+          "id" : 28,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 60,
+            "from" : 30166,
+            "to" : 36304
+          }, {
+            "id" : 61,
+            "from" : 70070,
+            "to" : 76585
+          } ],
+          "location" : {
+            "id" : 35,
+            "latitude" : 56.89427216709139,
+            "longitude" : 24.273793663132587
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 581,
+      "location" : {
+        "id" : 67,
+        "latitude" : 57.06360613937286,
+        "longitude" : 23.968109129586352
+      },
+      "car" : 2,
+      "previousVisit" : 23,
+      "arrivalTime" : 41362
+    }, {
+      "id" : 24,
+      "item" : {
+        "id" : 24,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 617810,
+        "customer" : {
+          "name" : "Name24",
+          "surname" : "Surname24",
+          "id" : 24,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 53,
+            "from" : 29620,
+            "to" : 40296
+          } ],
+          "location" : {
+            "id" : 31,
+            "latitude" : 57.009173059480645,
+            "longitude" : 24.064551710496364
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 367,
+      "location" : {
+        "id" : 63,
+        "latitude" : 56.940832352400996,
+        "longitude" : 23.945157762717173
+      },
+      "car" : 2,
+      "previousVisit" : 28,
+      "arrivalTime" : 44593
+    }, {
+      "id" : 31,
+      "item" : {
+        "id" : 31,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 317793,
+        "customer" : {
+          "name" : "Name31",
+          "surname" : "Surname31",
+          "id" : 31,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 66,
+            "from" : 31128,
+            "to" : 40840
+          }, {
+            "id" : 67,
+            "from" : 75568,
+            "to" : 85666
+          } ],
+          "location" : {
+            "id" : 38,
+            "latitude" : 56.97679189254562,
+            "longitude" : 24.163270710085854
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 374,
+      "location" : {
+        "id" : 70,
+        "latitude" : 56.942503899019385,
+        "longitude" : 23.94133889424339
+      },
+      "car" : 2,
+      "previousVisit" : 24,
+      "arrivalTime" : 45395
+    }, {
+      "id" : 37,
+      "item" : {
+        "id" : 37,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 670699,
+        "customer" : {
+          "name" : "Name5",
+          "surname" : "Surname5",
+          "id" : 5,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 14,
+            "from" : 35123,
+            "to" : 44850
+          }, {
+            "id" : 15,
+            "from" : 83573,
+            "to" : 92896
+          }, {
+            "id" : 16,
+            "from" : 180069,
+            "to" : 190750
+          } ],
+          "location" : {
+            "id" : 12,
+            "latitude" : 56.92408452028832,
+            "longitude" : 24.30970308299799
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 659,
+      "location" : {
+        "id" : 76,
+        "latitude" : 56.97991344168398,
+        "longitude" : 23.935154187628424
+      },
+      "car" : 2,
+      "previousVisit" : 31,
+      "arrivalTime" : 46486
+    }, {
+      "id" : 29,
+      "item" : {
+        "id" : 29,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1954764,
+        "customer" : {
+          "name" : "Name29",
+          "surname" : "Surname29",
+          "id" : 29,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 62,
+            "from" : 31070,
+            "to" : 36562
+          }, {
+            "id" : 63,
+            "from" : 71232,
+            "to" : 77551
+          }, {
+            "id" : 64,
+            "from" : 152383,
+            "to" : 156156
+          } ],
+          "location" : {
+            "id" : 36,
+            "latitude" : 57.02883508216229,
+            "longitude" : 24.075020089527708
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 69,
+      "location" : {
+        "id" : 68,
+        "latitude" : 56.98651289500251,
+        "longitude" : 23.93297117685261
+      },
+      "car" : 2,
+      "previousVisit" : 37,
+      "arrivalTime" : 47395
+    }, {
+      "id" : 35,
+      "item" : {
+        "id" : 35,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 577792,
+        "customer" : {
+          "name" : "Name3",
+          "surname" : "Surname3",
+          "id" : 3,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 11,
+            "from" : 30564,
+            "to" : 35257
+          } ],
+          "location" : {
+            "id" : 10,
+            "latitude" : 57.016030867401085,
+            "longitude" : 23.98977551079588
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 493,
+      "location" : {
+        "id" : 74,
+        "latitude" : 56.86523183380367,
+        "longitude" : 23.9471635848106
+      },
+      "car" : 2,
+      "previousVisit" : 29,
+      "arrivalTime" : 49138
+    }, {
+      "id" : 12,
+      "item" : {
+        "id" : 12,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 1473790,
+        "customer" : {
+          "name" : "Name12",
+          "surname" : "Surname12",
+          "id" : 12,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 29,
+            "from" : 29651,
+            "to" : 37312
+          } ],
+          "location" : {
+            "id" : 19,
+            "latitude" : 56.90647908213134,
+            "longitude" : 24.31443797104616
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 344,
+      "location" : {
+        "id" : 51,
+        "latitude" : 56.924039791728994,
+        "longitude" : 23.96346997221257
+      },
+      "car" : 2,
+      "previousVisit" : 35,
+      "arrivalTime" : 51499
+    }, {
+      "id" : 3,
+      "item" : {
+        "id" : 3,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1795206,
+        "customer" : {
+          "name" : "Name3",
+          "surname" : "Surname3",
+          "id" : 3,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 11,
+            "from" : 30564,
+            "to" : 35257
+          } ],
+          "location" : {
+            "id" : 10,
+            "latitude" : 57.016030867401085,
+            "longitude" : 23.98977551079588
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 73,
+      "location" : {
+        "id" : 42,
+        "latitude" : 56.98537948474329,
+        "longitude" : 23.979167143551127
+      },
+      "car" : 2,
+      "previousVisit" : 12,
+      "arrivalTime" : 53644
+    }, {
+      "id" : 4,
+      "item" : {
+        "id" : 4,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 1118445,
+        "customer" : {
+          "name" : "Name4",
+          "surname" : "Surname4",
+          "id" : 4,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 12,
+            "from" : 29180,
+            "to" : 37344
+          }, {
+            "id" : 13,
+            "from" : 70124,
+            "to" : 80276
+          } ],
+          "location" : {
+            "id" : 11,
+            "latitude" : 57.076200818079535,
+            "longitude" : 23.976082634219047
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 459,
+      "location" : {
+        "id" : 43,
+        "latitude" : 56.933100201732174,
+        "longitude" : 23.984781811357266
+      },
+      "car" : 2,
+      "previousVisit" : 3,
+      "arrivalTime" : 54383
+    }, {
+      "id" : 34,
+      "item" : {
+        "id" : 34,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 1230808,
+        "customer" : {
+          "name" : "Name2",
+          "surname" : "Surname2",
+          "id" : 2,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 8,
+            "from" : 29738,
+            "to" : 35324
+          }, {
+            "id" : 9,
+            "from" : 68662,
+            "to" : 76178
+          }, {
+            "id" : 10,
+            "from" : 148440,
+            "to" : 153879
+          } ],
+          "location" : {
+            "id" : 9,
+            "latitude" : 57.07997138200363,
+            "longitude" : 24.1596549137902
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 488,
+      "location" : {
+        "id" : 73,
+        "latitude" : 56.87843134552557,
+        "longitude" : 24.002931531527523
+      },
+      "car" : 2,
+      "previousVisit" : 4,
+      "arrivalTime" : 56918
+    }, {
+      "id" : 17,
+      "item" : {
+        "id" : 17,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1412565,
+        "customer" : {
+          "name" : "Name17",
+          "surname" : "Surname17",
+          "id" : 17,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 38,
+            "from" : 29393,
+            "to" : 37816
+          }, {
+            "id" : 39,
+            "from" : 70809,
+            "to" : 78767
+          }, {
+            "id" : 40,
+            "from" : 153176,
+            "to" : 160236
+          } ],
+          "location" : {
+            "id" : 24,
+            "latitude" : 56.99822346779596,
+            "longitude" : 24.159627599618272
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 527,
+      "location" : {
+        "id" : 56,
+        "latitude" : 56.90570324249058,
+        "longitude" : 24.025222560024392
+      },
+      "car" : 2,
+      "previousVisit" : 34,
+      "arrivalTime" : 59946
+    }, {
+      "id" : 8,
+      "item" : {
+        "id" : 8,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 1037913,
+        "customer" : {
+          "name" : "Name8",
+          "surname" : "Surname8",
+          "id" : 8,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 20,
+            "from" : 34108,
+            "to" : 44772
+          }, {
+            "id" : 21,
+            "from" : 82480,
+            "to" : 89854
+          }, {
+            "id" : 22,
+            "from" : 175934,
+            "to" : 179921
+          } ],
+          "location" : {
+            "id" : 15,
+            "latitude" : 56.947829821619116,
+            "longitude" : 24.09676807576242
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 431,
+      "location" : {
+        "id" : 47,
+        "latitude" : 56.8637663598616,
+        "longitude" : 24.030297708850096
+      },
+      "car" : 2,
+      "previousVisit" : 17,
+      "arrivalTime" : 61070
+    }, {
+      "id" : 14,
+      "item" : {
+        "id" : 14,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 1379191,
+        "customer" : {
+          "name" : "Name14",
+          "surname" : "Surname14",
+          "id" : 14,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 32,
+            "from" : 35019,
+            "to" : 38939
+          }, {
+            "id" : 33,
+            "from" : 77558,
+            "to" : 83279
+          }, {
+            "id" : 34,
+            "from" : 164437,
+            "to" : 169677
+          } ],
+          "location" : {
+            "id" : 21,
+            "latitude" : 57.029432403064206,
+            "longitude" : 24.31569275321816
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 264,
+      "location" : {
+        "id" : 53,
+        "latitude" : 56.90038582429383,
+        "longitude" : 24.07630556197162
+      },
+      "car" : 2,
+      "previousVisit" : 8,
+      "arrivalTime" : 66740
+    }, {
+      "id" : 15,
+      "item" : {
+        "id" : 15,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1005821,
+        "customer" : {
+          "name" : "Name15",
+          "surname" : "Surname15",
+          "id" : 15,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 35,
+            "from" : 34998,
+            "to" : 41802
+          } ],
+          "location" : {
+            "id" : 22,
+            "latitude" : 57.08355278709866,
+            "longitude" : 24.204004346239053
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 521,
+      "location" : {
+        "id" : 54,
+        "latitude" : 56.92749880142144,
+        "longitude" : 24.090029926508787
+      },
+      "car" : 2,
+      "previousVisit" : 14,
+      "arrivalTime" : 68569
+    }, {
+      "id" : 41,
+      "item" : null,
+      "visitType" : "SERVICE",
+      "serviceTime" : 3183,
+      "location" : {
+        "id" : 1,
+        "latitude" : 56.939102882603606,
+        "longitude" : 24.09898920831923
+      },
+      "car" : 2,
+      "previousVisit" : 15,
+      "arrivalTime" : 70111
+    }, {
+      "id" : 43,
+      "item" : null,
+      "visitType" : "SERVICE",
+      "serviceTime" : 2967,
+      "location" : {
+        "id" : 3,
+        "latitude" : 57.00172980282976,
+        "longitude" : 24.11062814827305
+      },
+      "car" : 2,
+      "previousVisit" : 41,
+      "arrivalTime" : 74638
+    }, {
+      "id" : 22,
+      "item" : {
+        "id" : 22,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 249552,
+        "customer" : {
+          "name" : "Name22",
+          "surname" : "Surname22",
+          "id" : 22,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 48,
+            "from" : 31669,
+            "to" : 41421
+          }, {
+            "id" : 49,
+            "from" : 76690,
+            "to" : 83444
+          } ],
+          "location" : {
+            "id" : 29,
+            "latitude" : 56.91904696122452,
+            "longitude" : 24.081572188960333
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 409,
+      "location" : {
+        "id" : 61,
+        "latitude" : 56.948234189385566,
+        "longitude" : 24.11916711385293
+      },
+      "car" : 2,
+      "previousVisit" : 43,
+      "arrivalTime" : 78596
+    }, {
+      "id" : 7,
+      "item" : {
+        "id" : 7,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1040875,
+        "customer" : {
+          "name" : "Name7",
+          "surname" : "Surname7",
+          "id" : 7,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 18,
+            "from" : 31020,
+            "to" : 38569
+          }, {
+            "id" : 19,
+            "from" : 73189,
+            "to" : 80343
+          } ],
+          "location" : {
+            "id" : 14,
+            "latitude" : 57.061597111733995,
+            "longitude" : 24.058628813889445
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 500,
+      "location" : {
+        "id" : 46,
+        "latitude" : 56.890245071019336,
+        "longitude" : 24.136854663604545
+      },
+      "car" : 2,
+      "previousVisit" : 22,
+      "arrivalTime" : 81029
+    }, {
+      "id" : 27,
+      "item" : {
+        "id" : 27,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 962946,
+        "customer" : {
+          "name" : "Name27",
+          "surname" : "Surname27",
+          "id" : 27,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 59,
+            "from" : 33246,
+            "to" : 42650
+          } ],
+          "location" : {
+            "id" : 34,
+            "latitude" : 56.98044450903408,
+            "longitude" : 23.971046017502655
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 627,
+      "location" : {
+        "id" : 66,
+        "latitude" : 56.931595952267294,
+        "longitude" : 24.16712680881832
+      },
+      "car" : 2,
+      "previousVisit" : 7,
+      "arrivalTime" : 84978
+    }, {
+      "id" : 9,
+      "item" : {
+        "id" : 9,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 844882,
+        "customer" : {
+          "name" : "Name9",
+          "surname" : "Surname9",
+          "id" : 9,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 23,
+            "from" : 29298,
+            "to" : 34968
+          } ],
+          "location" : {
+            "id" : 16,
+            "latitude" : 56.95540869445414,
+            "longitude" : 24.197856745285137
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 430,
+      "location" : {
+        "id" : 48,
+        "latitude" : 57.00343245194444,
+        "longitude" : 24.179513166572598
+      },
+      "car" : 2,
+      "previousVisit" : 27,
+      "arrivalTime" : 87039
+    }, {
+      "id" : 18,
+      "item" : {
+        "id" : 18,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 1210431,
+        "customer" : {
+          "name" : "Name18",
+          "surname" : "Surname18",
+          "id" : 18,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 41,
+            "from" : 35134,
+            "to" : 43191
+          } ],
+          "location" : {
+            "id" : 25,
+            "latitude" : 56.940767489715476,
+            "longitude" : 24.113903037071058
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 243,
+      "location" : {
+        "id" : 57,
+        "latitude" : 56.94315159883553,
+        "longitude" : 24.193004835230433
+      },
+      "car" : 2,
+      "previousVisit" : 9,
+      "arrivalTime" : 89020
+    }, {
+      "id" : 26,
+      "item" : {
+        "id" : 26,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 542749,
+        "customer" : {
+          "name" : "Name26",
+          "surname" : "Surname26",
+          "id" : 26,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 56,
+            "from" : 30528,
+            "to" : 36115
+          }, {
+            "id" : 57,
+            "from" : 70243,
+            "to" : 76364
+          }, {
+            "id" : 58,
+            "from" : 150207,
+            "to" : 160238
+          } ],
+          "location" : {
+            "id" : 33,
+            "latitude" : 56.98675912798088,
+            "longitude" : 24.272137302887625
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 508,
+      "location" : {
+        "id" : 65,
+        "latitude" : 56.93637224853826,
+        "longitude" : 24.204264780761783
+      },
+      "car" : 2,
+      "previousVisit" : 18,
+      "arrivalTime" : 90545
+    }, {
+      "id" : 16,
+      "item" : {
+        "id" : 16,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 1036670,
+        "customer" : {
+          "name" : "Name16",
+          "surname" : "Surname16",
+          "id" : 16,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 36,
+            "from" : 29303,
+            "to" : 37299
+          }, {
+            "id" : 37,
+            "from" : 70202,
+            "to" : 79722
+          } ],
+          "location" : {
+            "id" : 23,
+            "latitude" : 56.897770889923585,
+            "longitude" : 24.275354042538996
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 231,
+      "location" : {
+        "id" : 55,
+        "latitude" : 56.95540579180188,
+        "longitude" : 24.213477469059253
+      },
+      "car" : 2,
+      "previousVisit" : 26,
+      "arrivalTime" : 92104
+    }, {
+      "id" : 11,
+      "item" : {
+        "id" : 11,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1609364,
+        "customer" : {
+          "name" : "Name11",
+          "surname" : "Surname11",
+          "id" : 11,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 26,
+            "from" : 32855,
+            "to" : 43455
+          }, {
+            "id" : 27,
+            "from" : 79910,
+            "to" : 87215
+          }, {
+            "id" : 28,
+            "from" : 170725,
+            "to" : 180131
+          } ],
+          "location" : {
+            "id" : 18,
+            "latitude" : 56.94367376017073,
+            "longitude" : 23.94170731288825
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 108,
+      "location" : {
+        "id" : 50,
+        "latitude" : 56.96819113056959,
+        "longitude" : 24.242553485355984
+      },
+      "car" : 2,
+      "previousVisit" : 16,
+      "arrivalTime" : 95645
+    }, {
+      "id" : 32,
+      "item" : {
+        "id" : 32,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 976527,
+        "customer" : {
+          "name" : "Name32",
+          "surname" : "Surname32",
+          "id" : 32,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 68,
+            "from" : 35327,
+            "to" : 44262
+          }, {
+            "id" : 69,
+            "from" : 83189,
+            "to" : 87292
+          }, {
+            "id" : 70,
+            "from" : 174081,
+            "to" : 177961
+          } ],
+          "location" : {
+            "id" : 39,
+            "latitude" : 57.00749092780496,
+            "longitude" : 24.09067035144826
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 324,
+      "location" : {
+        "id" : 71,
+        "latitude" : 56.94160015709404,
+        "longitude" : 24.27646009827502
+      },
+      "car" : 2,
+      "previousVisit" : 11,
+      "arrivalTime" : 99614
+    }, {
+      "id" : 20,
+      "item" : {
+        "id" : 20,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 769093,
+        "customer" : {
+          "name" : "Name20",
+          "surname" : "Surname20",
+          "id" : 20,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 44,
+            "from" : 30130,
+            "to" : 37433
+          }, {
+            "id" : 45,
+            "from" : 71163,
+            "to" : 76790
+          }, {
+            "id" : 46,
+            "from" : 151553,
+            "to" : 159907
+          } ],
+          "location" : {
+            "id" : 27,
+            "latitude" : 56.880178045261246,
+            "longitude" : 24.14001482526479
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 190,
+      "location" : {
+        "id" : 59,
+        "latitude" : 56.885935653265,
+        "longitude" : 24.286435496643836
+      },
+      "car" : 2,
+      "previousVisit" : 32,
+      "arrivalTime" : 101091
+    }, {
+      "id" : 6,
+      "item" : {
+        "id" : 6,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 1064883,
+        "customer" : {
+          "name" : "Name6",
+          "surname" : "Surname6",
+          "id" : 6,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 17,
+            "from" : 34733,
+            "to" : 42117
+          } ],
+          "location" : {
+            "id" : 13,
+            "latitude" : 56.91180548618262,
+            "longitude" : 24.257364621404562
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 445,
+      "location" : {
+        "id" : 45,
+        "latitude" : 56.873886295438,
+        "longitude" : 24.29810355997463
+      },
+      "car" : 2,
+      "previousVisit" : 20,
+      "arrivalTime" : 102610
+    }, {
+      "id" : 33,
+      "item" : {
+        "id" : 33,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1437242,
+        "customer" : {
+          "name" : "Name1",
+          "surname" : "Surname1",
+          "id" : 1,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 6,
+            "from" : 33972,
+            "to" : 38723
+          }, {
+            "id" : 7,
+            "from" : 76295,
+            "to" : 84360
+          } ],
+          "location" : {
+            "id" : 8,
+            "latitude" : 56.970294481812196,
+            "longitude" : 24.295859120417504
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 117,
+      "location" : {
+        "id" : 72,
+        "latitude" : 57.01804177539838,
+        "longitude" : 24.306472740716114
+      },
+      "car" : 2,
+      "previousVisit" : 6,
+      "arrivalTime" : 104140
+    }, {
+      "id" : 10,
+      "item" : {
+        "id" : 10,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 824132,
+        "customer" : {
+          "name" : "Name10",
+          "surname" : "Surname10",
+          "id" : 10,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 24,
+            "from" : 35978,
+            "to" : 43148
+          }, {
+            "id" : 25,
+            "from" : 82726,
+            "to" : 90952
+          } ],
+          "location" : {
+            "id" : 17,
+            "latitude" : 56.96742603843814,
+            "longitude" : 24.02207584355296
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 178,
+      "location" : {
+        "id" : 49,
+        "latitude" : 57.08349851616189,
+        "longitude" : 24.310011691108826
+      },
+      "car" : 2,
+      "previousVisit" : 33,
+      "arrivalTime" : 104724
+    }, {
+      "id" : 40,
+      "item" : {
+        "id" : 40,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 198009,
+        "customer" : {
+          "name" : "Name8",
+          "surname" : "Surname8",
+          "id" : 8,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 20,
+            "from" : 34108,
+            "to" : 44772
+          }, {
+            "id" : 21,
+            "from" : 82480,
+            "to" : 89854
+          }, {
+            "id" : 22,
+            "from" : 175934,
+            "to" : 179921
+          } ],
+          "location" : {
+            "id" : 15,
+            "latitude" : 56.947829821619116,
+            "longitude" : 24.09676807576242
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 163,
+      "location" : {
+        "id" : 79,
+        "latitude" : 57.067974199156765,
+        "longitude" : 24.303717006887542
+      },
+      "car" : 2,
+      "previousVisit" : 10,
+      "arrivalTime" : 105621
+    }, {
+      "id" : 30,
+      "item" : {
+        "id" : 30,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 542344,
+        "customer" : {
+          "name" : "Name30",
+          "surname" : "Surname30",
+          "id" : 30,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 65,
+            "from" : 33296,
+            "to" : 38164
+          } ],
+          "location" : {
+            "id" : 37,
+            "latitude" : 57.013366648313124,
+            "longitude" : 24.061098108909384
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 612,
+      "location" : {
+        "id" : 69,
+        "latitude" : 57.02728937170414,
+        "longitude" : 24.23103706830143
+      },
+      "car" : 2,
+      "previousVisit" : 40,
+      "arrivalTime" : 114059
+    }, {
+      "id" : 5,
+      "item" : {
+        "id" : 5,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1645425,
+        "customer" : {
+          "name" : "Name5",
+          "surname" : "Surname5",
+          "id" : 5,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 14,
+            "from" : 35123,
+            "to" : 44850
+          }, {
+            "id" : 15,
+            "from" : 83573,
+            "to" : 92896
+          }, {
+            "id" : 16,
+            "from" : 180069,
+            "to" : 190750
+          } ],
+          "location" : {
+            "id" : 12,
+            "latitude" : 56.92408452028832,
+            "longitude" : 24.30970308299799
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 656,
+      "location" : {
+        "id" : 44,
+        "latitude" : 57.046811048772355,
+        "longitude" : 24.22102450289595
+      },
+      "car" : 2,
+      "previousVisit" : 30,
+      "arrivalTime" : 115813
+    }, {
+      "id" : 45,
+      "item" : null,
+      "visitType" : "SERVICE",
+      "serviceTime" : 2822,
+      "location" : {
+        "id" : 5,
+        "latitude" : 57.0726960599777,
+        "longitude" : 24.21309162203624
+      },
+      "car" : 2,
+      "previousVisit" : 5,
+      "arrivalTime" : 117377
+    }, {
+      "id" : 25,
+      "item" : {
+        "id" : 25,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1934975,
+        "customer" : {
+          "name" : "Name25",
+          "surname" : "Surname25",
+          "id" : 25,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 54,
+            "from" : 31062,
+            "to" : 40794
+          }, {
+            "id" : 55,
+            "from" : 75456,
+            "to" : 84736
+          } ],
+          "location" : {
+            "id" : 32,
+            "latitude" : 56.97265821246688,
+            "longitude" : 23.959363245762876
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 288,
+      "location" : {
+        "id" : 64,
+        "latitude" : 57.032208407317526,
+        "longitude" : 24.187885189064442
+      },
+      "car" : 2,
+      "previousVisit" : 45,
+      "arrivalTime" : 123072
+    }, {
+      "id" : 44,
+      "item" : null,
+      "visitType" : "SERVICE",
+      "serviceTime" : 3014,
+      "location" : {
+        "id" : 4,
+        "latitude" : 57.07368410450234,
+        "longitude" : 24.182298320300326
+      },
+      "car" : 2,
+      "previousVisit" : 25,
+      "arrivalTime" : 124013
+    }, {
+      "id" : 39,
+      "item" : {
+        "id" : 39,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1602434,
+        "customer" : {
+          "name" : "Name7",
+          "surname" : "Surname7",
+          "id" : 7,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 18,
+            "from" : 31020,
+            "to" : 38569
+          }, {
+            "id" : 19,
+            "from" : 73189,
+            "to" : 80343
+          } ],
+          "location" : {
+            "id" : 14,
+            "latitude" : 57.061597111733995,
+            "longitude" : 24.058628813889445
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 535,
+      "location" : {
+        "id" : 78,
+        "latitude" : 57.01070321319938,
+        "longitude" : 24.166039975509676
+      },
+      "car" : 2,
+      "previousVisit" : 44,
+      "arrivalTime" : 128892
+    }, {
+      "id" : 13,
+      "item" : {
+        "id" : 13,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1256518,
+        "customer" : {
+          "name" : "Name13",
+          "surname" : "Surname13",
+          "id" : 13,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 30,
+            "from" : 28813,
+            "to" : 34988
+          }, {
+            "id" : 31,
+            "from" : 67401,
+            "to" : 72492
+          } ],
+          "location" : {
+            "id" : 20,
+            "latitude" : 57.06839983280284,
+            "longitude" : 24.006079540988654
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 468,
+      "location" : {
+        "id" : 52,
+        "latitude" : 57.07903157919466,
+        "longitude" : 24.11463810550291
+      },
+      "car" : 2,
+      "previousVisit" : 39,
+      "arrivalTime" : 135284
+    }, {
+      "id" : 36,
+      "item" : {
+        "id" : 36,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 858674,
+        "customer" : {
+          "name" : "Name4",
+          "surname" : "Surname4",
+          "id" : 4,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 12,
+            "from" : 29180,
+            "to" : 37344
+          }, {
+            "id" : 13,
+            "from" : 70124,
+            "to" : 80276
+          } ],
+          "location" : {
+            "id" : 11,
+            "latitude" : 57.076200818079535,
+            "longitude" : 23.976082634219047
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 73,
+      "location" : {
+        "id" : 75,
+        "latitude" : 57.006137247542036,
+        "longitude" : 24.090475705078713
+      },
+      "car" : 2,
+      "previousVisit" : 13,
+      "arrivalTime" : 138515
+    }, {
+      "id" : 2,
+      "item" : {
+        "id" : 2,
+        "depot" : {
+          "id" : 2,
+          "location" : {
+            "id" : 7,
+            "latitude" : 56.86000603206716,
+            "longitude" : 23.94779077975199
+          }
+        },
+        "size" : 1883827,
+        "customer" : {
+          "name" : "Name2",
+          "surname" : "Surname2",
+          "id" : 2,
+          "customerType" : "DELIVERY",
+          "timeWindows" : [ {
+            "id" : 8,
+            "from" : 29738,
+            "to" : 35324
+          }, {
+            "id" : 9,
+            "from" : 68662,
+            "to" : 76178
+          }, {
+            "id" : 10,
+            "from" : 148440,
+            "to" : 153879
+          } ],
+          "location" : {
+            "id" : 9,
+            "latitude" : 57.07997138200363,
+            "longitude" : 24.1596549137902
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 545,
+      "location" : {
+        "id" : 41,
+        "latitude" : 57.07967368572465,
+        "longitude" : 24.0763726971393
+      },
+      "car" : 2,
+      "previousVisit" : 36,
+      "arrivalTime" : 140215
+    }, {
+      "id" : 1,
+      "item" : {
+        "id" : 1,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 1093510,
+        "customer" : {
+          "name" : "Name1",
+          "surname" : "Surname1",
+          "id" : 1,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 6,
+            "from" : 33972,
+            "to" : 38723
+          }, {
+            "id" : 7,
+            "from" : 76295,
+            "to" : 84360
+          } ],
+          "location" : {
+            "id" : 8,
+            "latitude" : 56.970294481812196,
+            "longitude" : 24.295859120417504
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 651,
+      "location" : {
+        "id" : 40,
+        "latitude" : 57.0744392527111,
+        "longitude" : 24.05399559075338
+      },
+      "car" : 2,
+      "previousVisit" : 2,
+      "arrivalTime" : 143308
+    }, {
+      "id" : 19,
+      "item" : {
+        "id" : 19,
+        "depot" : {
+          "id" : 1,
+          "location" : {
+            "id" : 6,
+            "latitude" : 56.98053553581922,
+            "longitude" : 24.048642537583017
+          }
+        },
+        "size" : 796103,
+        "customer" : {
+          "name" : "Name19",
+          "surname" : "Surname19",
+          "id" : 19,
+          "customerType" : "PICKUP",
+          "timeWindows" : [ {
+            "id" : 42,
+            "from" : 32990,
+            "to" : 38244
+          }, {
+            "id" : 43,
+            "from" : 74834,
+            "to" : 83839
+          } ],
+          "location" : {
+            "id" : 26,
+            "latitude" : 56.88210974891867,
+            "longitude" : 24.088754769333903
+          },
+          "visited" : true
+        },
+        "served" : false
+      },
+      "visitType" : "SUPPLY",
+      "serviceTime" : 407,
+      "location" : {
+        "id" : 58,
+        "latitude" : 57.03371037008933,
+        "longitude" : 24.042105690642128
+      },
+      "car" : 2,
+      "previousVisit" : 1,
+      "arrivalTime" : 145320
+    }, {
+      "id" : 42,
+      "item" : null,
+      "visitType" : "SERVICE",
+      "serviceTime" : 3840,
+      "location" : {
+        "id" : 2,
+        "latitude" : 56.96119864106267,
+        "longitude" : 24.028569654464615
+      },
+      "car" : 2,
+      "previousVisit" : 19,
+      "arrivalTime" : 147290
+    } ]
+  }, {
+    "id" : 3,
+    "number" : "LV - 314",
+    "availableSize" : 25343228,
+    "garage" : {
+      "id" : 3,
+      "location" : {
+        "id" : 3,
+        "latitude" : 57.00172980282976,
+        "longitude" : 24.11062814827305
+      }
+    },
+    "driver" : {
+      "name" : "Name3",
+      "surname" : "Surname3",
+      "id" : 3,
+      "timeWindow" : {
+        "id" : 3,
+        "from" : 29350,
+        "to" : 65086
+      },
+      "lunchTime" : 1894
+    },
+    "serviceTimeBefore" : 539,
+    "serviceTimeAfter" : 80,
+    "serviceTimeBetween" : 1073,
+    "possibleMileage" : 146789.0,
+    "filledSize" : 0,
+    "visits" : [ ]
+  }, {
+    "id" : 4,
+    "number" : "LV - 415",
+    "availableSize" : 26816216,
+    "garage" : {
+      "id" : 4,
+      "location" : {
+        "id" : 4,
+        "latitude" : 57.07368410450234,
+        "longitude" : 24.182298320300326
+      }
+    },
+    "driver" : {
+      "name" : "Name4",
+      "surname" : "Surname4",
+      "id" : 4,
+      "timeWindow" : {
+        "id" : 4,
+        "from" : 33761,
+        "to" : 65574
+      },
+      "lunchTime" : 2070
+    },
+    "serviceTimeBefore" : 355,
+    "serviceTimeAfter" : 160,
+    "serviceTimeBetween" : 944,
+    "possibleMileage" : 139290.0,
+    "filledSize" : 0,
+    "visits" : [ ]
+  }, {
+    "id" : 5,
+    "number" : "LV - 516",
+    "availableSize" : 25175903,
+    "garage" : {
+      "id" : 5,
+      "location" : {
+        "id" : 5,
+        "latitude" : 57.0726960599777,
+        "longitude" : 24.21309162203624
+      }
+    },
+    "driver" : {
+      "name" : "Name5",
+      "surname" : "Surname5",
+      "id" : 5,
+      "timeWindow" : {
+        "id" : 5,
+        "from" : 33171,
+        "to" : 65462
+      },
+      "lunchTime" : 2101
+    },
+    "serviceTimeBefore" : 790,
+    "serviceTimeAfter" : 260,
+    "serviceTimeBetween" : 721,
+    "possibleMileage" : 175052.0,
+    "filledSize" : 0,
+    "visits" : [ ]
+  } ],
+  "visits" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 ],
+  "locations" : [ {
+    "id" : 1,
+    "latitude" : 56.939102882603606,
+    "longitude" : 24.09898920831923
+  }, {
+    "id" : 2,
+    "latitude" : 56.96119864106267,
+    "longitude" : 24.028569654464615
+  }, {
+    "id" : 3,
+    "latitude" : 57.00172980282976,
+    "longitude" : 24.11062814827305
+  }, {
+    "id" : 4,
+    "latitude" : 57.07368410450234,
+    "longitude" : 24.182298320300326
+  }, {
+    "id" : 5,
+    "latitude" : 57.0726960599777,
+    "longitude" : 24.21309162203624
+  }, {
+    "id" : 6,
+    "latitude" : 56.98053553581922,
+    "longitude" : 24.048642537583017
+  }, {
+    "id" : 7,
+    "latitude" : 56.86000603206716,
+    "longitude" : 23.94779077975199
+  }, {
+    "id" : 8,
+    "latitude" : 56.970294481812196,
+    "longitude" : 24.295859120417504
+  }, {
+    "id" : 9,
+    "latitude" : 57.07997138200363,
+    "longitude" : 24.1596549137902
+  }, {
+    "id" : 10,
+    "latitude" : 57.016030867401085,
+    "longitude" : 23.98977551079588
+  }, {
+    "id" : 11,
+    "latitude" : 57.076200818079535,
+    "longitude" : 23.976082634219047
+  }, {
+    "id" : 12,
+    "latitude" : 56.92408452028832,
+    "longitude" : 24.30970308299799
+  }, {
+    "id" : 13,
+    "latitude" : 56.91180548618262,
+    "longitude" : 24.257364621404562
+  }, {
+    "id" : 14,
+    "latitude" : 57.061597111733995,
+    "longitude" : 24.058628813889445
+  }, {
+    "id" : 15,
+    "latitude" : 56.947829821619116,
+    "longitude" : 24.09676807576242
+  }, {
+    "id" : 16,
+    "latitude" : 56.95540869445414,
+    "longitude" : 24.197856745285137
+  }, {
+    "id" : 17,
+    "latitude" : 56.96742603843814,
+    "longitude" : 24.02207584355296
+  }, {
+    "id" : 18,
+    "latitude" : 56.94367376017073,
+    "longitude" : 23.94170731288825
+  }, {
+    "id" : 19,
+    "latitude" : 56.90647908213134,
+    "longitude" : 24.31443797104616
+  }, {
+    "id" : 20,
+    "latitude" : 57.06839983280284,
+    "longitude" : 24.006079540988654
+  }, {
+    "id" : 21,
+    "latitude" : 57.029432403064206,
+    "longitude" : 24.31569275321816
+  }, {
+    "id" : 22,
+    "latitude" : 57.08355278709866,
+    "longitude" : 24.204004346239053
+  }, {
+    "id" : 23,
+    "latitude" : 56.897770889923585,
+    "longitude" : 24.275354042538996
+  }, {
+    "id" : 24,
+    "latitude" : 56.99822346779596,
+    "longitude" : 24.159627599618272
+  }, {
+    "id" : 25,
+    "latitude" : 56.940767489715476,
+    "longitude" : 24.113903037071058
+  }, {
+    "id" : 26,
+    "latitude" : 56.88210974891867,
+    "longitude" : 24.088754769333903
+  }, {
+    "id" : 27,
+    "latitude" : 56.880178045261246,
+    "longitude" : 24.14001482526479
+  }, {
+    "id" : 28,
+    "latitude" : 57.022390852755,
+    "longitude" : 24.18000691985928
+  }, {
+    "id" : 29,
+    "latitude" : 56.91904696122452,
+    "longitude" : 24.081572188960333
+  }, {
+    "id" : 30,
+    "latitude" : 56.94694647112997,
+    "longitude" : 24.035123385075345
+  }, {
+    "id" : 31,
+    "latitude" : 57.009173059480645,
+    "longitude" : 24.064551710496364
+  }, {
+    "id" : 32,
+    "latitude" : 56.97265821246688,
+    "longitude" : 23.959363245762876
+  }, {
+    "id" : 33,
+    "latitude" : 56.98675912798088,
+    "longitude" : 24.272137302887625
+  }, {
+    "id" : 34,
+    "latitude" : 56.98044450903408,
+    "longitude" : 23.971046017502655
+  }, {
+    "id" : 35,
+    "latitude" : 56.89427216709139,
+    "longitude" : 24.273793663132587
+  }, {
+    "id" : 36,
+    "latitude" : 57.02883508216229,
+    "longitude" : 24.075020089527708
+  }, {
+    "id" : 37,
+    "latitude" : 57.013366648313124,
+    "longitude" : 24.061098108909384
+  }, {
+    "id" : 38,
+    "latitude" : 56.97679189254562,
+    "longitude" : 24.163270710085854
+  }, {
+    "id" : 39,
+    "latitude" : 57.00749092780496,
+    "longitude" : 24.09067035144826
+  } ]
+}

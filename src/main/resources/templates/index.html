@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pickup-Delivery</title>
+
+    <style>
+        body {
+            font-size: 0.75rem;
+        }
+        .text-yellow {
+            background-color: yellow;
+        }
+
+        .text-orange {
+            background-color: orange;
+        }
+
+        .text-red {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Pickup delivery solver</h1>
+
+<form action="/api/solve" method="post">
+    <label>Car count: </label><input name="carCount"/>
+    <label>Item count: </label><input name="itemCount"/>
+    <button type="submit">Solve</button>
+</form>
+
+<p th:if="${service.getSolution().getScore() != null}">Best score: <span th:text="${service.getSolution().getScore()}"></span></p>
+
+<h2>Supply Visits by Car</h2>
+
+<table border="1">
+    <tr>
+        <th>Visit ID</th>
+        <th>CUSTOMER TYPE/DEPOT</th>
+        <th>Customer ID/DEPOT ID</th>
+        <th>Location</th>
+        <th>Total distance until visit without service visit</th>
+        <th>Arrival Time</th>
+        <th>Service Time</th>
+        <th>Departure Time</th>
+        <th>Time From Previous Visit</th>
+        <th>Distance From Previous Visit, m</th>
+        <th>Item ID</th>
+        <th>Item Size</th>
+        <th>Customer Time Windows</th>
+        <th>Customer Served Cars</th>
+        <th>Driver Waiting Time</th>
+        <th>Item Served</th>
+    </tr>
+    <div th:each="car : ${service.getSolution().getCars()}">
+        <tr>
+            <td colspan="16" th:text="${car.getId() + ' Driver time window ' + service.getDriverTimeWindowByCarId(car.getId())
+            + ' with lunch time/car service ' + service.getServiceVisitTimeByCar(car) + ' possible mileage (m): ' + car.getPossibleMileage()}"
+            th:classappend="${service.getServiceVisitTimeByCar(car) == 'NO SERVICE VISIT' ? 'text-red' : ''}"></td>
+        </tr>
+        <tr th:each="visit : ${service.getSupplyVisits(car.getVisits())}">
+<!--            BOTH TYPES-->
+            <td th:text="${visit.getId()}"></td>
+<!--            CUSTOMER VISITS -->
+            <td th:if="${visit.getItem() != null}" th:text="${visit.getItem().getCustomer().getCustomerType()}"></td>
+            <td th:if="${visit.getItem() != null}" th:text="${visit.getItem().getCustomer().getId()}"></td>
+<!--            DEPOT VISITS -->
+            <td th:if="${visit.getItem() == null}" th:text="DEPOT"></td>
+            <td th:if="${visit.getItem() == null}" th:text="${service.getDepotIdByLocation(visit.getLocation())}"></td>
+<!--            BOTH TYPES-->
+            <td th:text="${'[' + visit.getLocation().getLatitude() + ', ' + visit.getLocation().getLongitude() + ']'}"></td>
+            <td th:text="${service.getTotalDistanceUntilVisit(visit)}"></td>
+            <td th:text="${service.formatTime(visit.getArrivalTime())}"></td>
+            <td th:text="${service.formatTime(visit.getServiceTime())}"></td>
+            <td th:text="${service.formatTime(visit.getArrivalTime() + visit.getServiceTime() + service.getDriverWaitingTime(visit))}"></td>
+            <td th:text="${service.getTimeFromPreviousVisit(visit)}"></td>
+            <td th:text="${service.getDistanceFromPreviousVisit(visit)}"></td>
+<!--            CUSTOMER VISITS -->
+            <td th:if="${visit.getItem() != null}" th:text="${visit.getItem().getId()}"></td>
+            <td th:if="${visit.getItem() != null}" th:text="${visit.getItem().getSize()}"></td>
+            <td th:if="${visit.getItem() != null}" th:utext="${service.formatTimeWindows(visit.getItem().getCustomer())}"></td>
+            <td th:if="${visit.getItem() != null}" th:text="${service.getCustomerVisitedCars(visit)}"
+                th:classappend="${service.getCustomerVisitedCars(visit) == 1 ? '' : 'text-yellow'}"></td>
+            <td th:if="${visit.getItem() != null}" th:text="${service.getDriverWaitingTimeStr(visit)}"
+                th:classappend="${service.getDriverWaitingTimeStr(visit) == '0 : 0 : 0' ? '' : 'text-yellow'}"></td>
+            <td th:if="${visit.getItem() != null}" th:text="${!service.itemIsNotServed(visit.getItem().getId())}"
+                th:classappend="${!service.itemIsNotServed(visit.getItem().getId()) == false ? 'text-red' : ''}"></td>
+<!--            DEPOT VISITS -->
+            <td th:if="${visit.getItem() == null}" colspan="6"></td>
+        </tr>
+    </div>
+</table>
+
+<h2>Service Visits</h2>
+
+<table border="1">
+    <tr>
+        <th>Visit ID</th>
+        <th>Car ID</th>
+        <th>Location</th>
+        <th>Total distance until visit without service visit</th>
+        <th>Arrival Time</th>
+        <th>Service Time</th>
+        <th>Lunch time (included in service time)</th>
+        <th>Departure Time</th>
+        <th>Time From Previous Visit</th>
+        <th>Distance From Previous Visit, m</th>
+        <th>Driver Start Time</th>
+        <th>Driver End Time</th>
+        <th>Total distance until garage without service visit</th>
+        <th>Driver working time exceeded</th>
+        <th>Possible mileage exceeded</th>
+        <th>Total distance, m</th>
+        <th>Total time, s</th>
+    </tr>
+    <tr th:each="visit : ${service.getServiceVisits()}">
+        <td th:text="${visit.getId()}"></td>
+        <td th:text="${visit.getCar().getId()}"></td>
+        <td th:text="${'[' + visit.getLocation().getLatitude() + ', ' + visit.getLocation().getLongitude() + ']'}"></td>
+        <td th:text="${service.getTotalDistanceUntilVisit(visit)}"></td>
+        <td th:text="${service.formatTime(visit.getArrivalTime())}"></td>
+        <td th:text="${service.formatTime(visit.getServiceTime())}"></td>
+        <td th:text="${service.formatTime(visit.getCar().getDriver().getDriverLunchTime())}"></td>
+        <td th:text="${service.formatTime(visit.getArrivalTime() + visit.getServiceTime())}"></td>
+        <td th:text="${service.getTimeFromPreviousVisit(visit)}"></td>
+        <td th:text="${service.getDistanceFromPreviousVisit(visit)}"></td>
+        <td th:text="${service.formatTime(visit.getCar().getDriver().getTimeWindow().getFrom())}"></td>
+        <td th:text="${service.formatTime(visit.getCar().getDriver().getTimeWindow().getTo())}"></td>
+        <td th:text="${service.getTotalDistanceUntilGarage(visit.getCar())}"></td>
+        <td th:text="${service.getDriverWorkingTimeExceededStr(visit.getCar())}"
+            th:classappend="${service.getDriverWorkingTimeExceededStr(visit.getCar()) != '0' ? 'text-orange' : ''}"></td>
+        <td th:text="${service.getPossibleMileageExceeded(visit.getCar())}"
+            th:classappend="${service.getPossibleMileageExceeded(visit.getCar()) > 0 ? 'text-orange' : ''}"></td>
+        <td class="text-yellow" th:text="${visit.getCar().getTotalDistance()}"></td>
+        <td class="text-yellow" th:text="${visit.getCar().getTotalTime()}"></td>
+    </tr>
+</table>
+
+
+</body>
+</html>

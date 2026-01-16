@@ -1,0 +1,16 @@
+package org.example.pko2;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.io.IOException;
+
+@Slf4j
+@SpringBootApplication
+public class Pko2Application {
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        SpringApplication.run(Pko2Application.class, args);
+    }
+}

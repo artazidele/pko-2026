@@ -1,0 +1,2831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2026-01-16_130655 Planner benchmark report</title>
+
+    <link href="website/img/timefold-favicon.svg" rel="icon" type="image/svg+xml">
+    <link href="website/img/timefold-favicon.svg" rel="mask-icon" color="#000000">
+
+    <link href="website/css/app.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="website/css/timefold-webui.css" rel="stylesheet" />
+    <link href="website/css/prettify.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+
+    <script src="https://buttons.github.io/buttons.js"></script>
+    <script src="website/js/app.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.3/dist/chart.umd.min.js"></script>
+    <script src="https://unpkg.com/@sgratzl/chartjs-chart-boxplot@4.2.0"></script>
+    <script src="website/js/chartjs-plugin-watermark.js"></script>
+    <script src="website/js/prettify.js"></script>
+</head>
+<body onload="prettyPrint()">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-black shadow">
+        <div class="container">
+            <div class="text-white">
+                <a href="#" class="navbar-brand">
+                    <img src="website/img/timefold-logo-horizontal-negative.svg" alt="Timefold Logo (horizontal, negative)">
+                </a>
+                <br />
+                Benchmark Report
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            Summary
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#summary_result">Results</a></li>
+                            <li><a class="dropdown-item" href="#summary_performance">Performance</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            Problems
+                        </a>
+                        <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#problemBenchmark_example-002Ddata-002D1">&nbsp;example-data-1</a></li>
+                                <li><a class="dropdown-item" href="#problemBenchmark_example-002Ddata-002D2">&nbsp;example-data-2</a></li>
+                                <li><a class="dropdown-item" href="#problemBenchmark_example-002Ddata-002D3">        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+&nbsp;example-data-3</a></li>
+                                <li><a class="dropdown-item" href="#problemBenchmark_example-002Ddata-002D4">        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+&nbsp;example-data-4</a></li>
+                                <li><a class="dropdown-item" href="#problemBenchmark_example-002Ddata-002D5">        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+&nbsp;example-data-5</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#solverBenchmarkResult">Solvers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#environmentInformation">Environment</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="d-inline-flex align-items-center">
+                        <span class="mx-1" style="position:relative; top:3px;"><a class="github-button" aria-label="Star Timefold on GitHub" href="https://github.com/TimefoldAI/timefold-solver" data-show-count="true" data-color-scheme="no-preference: dark; light: dark; dark: dark;">Star</a></span>
+                        <a class="mx-1" href="https://stackoverflow.com/questions/tagged/timefold"><i class="fa-brands fa-stack-overflow text-white"></i></a>
+                        <a class="mx-1" href="https://youtube.com/@timefold"><i class="fa-brands fa-youtube text-white"></i></a>
+                        <a class="mx-1" href="https://twitter.com/TimefoldAI"><i class="fa-brands fa-twitter text-white"></i></a>
+                        <a role="button" class="btn btn-sm tf-btn-contact btn-outline-light mx-1" href="https://timefold.ai/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid p-2 w-75"> <!-- Content -->
+        <header class="visually-hidden">
+            <h1>Timefold Benchmark report</h1>
+        </header>
+
+        <section id="summary_result">
+            <h2>Result summary</h2>
+                <div class="alert alert-danger">
+                    <p>21 benchmarks have failed!</p>
+                </div>
+            <div class="tabbable">
+                <ul class="nav nav-pills justify-content-center">
+                    <li class="nav-item">
+                        <button class="nav-link active" id="summary_bestScore-tab" data-bs-toggle="pill" data-bs-target="#summary_bestScore-tab-pane" type="button">Best score</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="summary_bestScoreScalability-tab" data-bs-toggle="pill" data-bs-target="#summary_bestScoreScalability-tab-pane" type="button">Best score scalability</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="summary_bestScoreDistribution-tab" data-bs-toggle="pill" data-bs-target="#summary_bestScoreDistribution-tab-pane" type="button">Best score distribution</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="summary_winningScoreDifference-tab" data-bs-toggle="pill" data-bs-target="#summary_winningScoreDifference-tab-pane" type="button">Winning score difference</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="summary_worstScoreDifferencePercentage-tab" data-bs-toggle="pill" data-bs-target="#summary_worstScoreDifferencePercentage-tab-pane" type="button">Worst score difference percentage (ROI)</button>
+                    </li>
+                </ul>
+                <div class="tab-content p-2">
+                    <div class="tab-pane show active" id="summary_bestScore-tab-pane">
+                        <h3 class="visually-hidden">Best score summary</h3>
+                        <p>Useful for visualizing the best solver configuration.</p>
+    <div class="tabbable">
+        <div class="tab-content">
+                <div class="tab-pane show" id="summary_bestScore_chart_0-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreSummaryChart0_918f"></canvas>
+        <script async src="website/js/bestScoreSummaryChart0_918f.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show active" id="summary_bestScore_chart_1-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreSummaryChart1_cd4f4"></canvas>
+        <script async src="website/js/bestScoreSummaryChart1_cd4f4.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show" id="summary_bestScore_chart_2-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreSummaryChart2_edea5"></canvas>
+        <script async src="website/js/bestScoreSummaryChart2_edea5.js"></script>
+    </div>
+                </div>
+        </div>
+        <ul class="nav nav-pills justify-content-center mb-2">
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#summary_bestScore_chart_0-tab-pane" type="button">Hard Score</button></li>
+                <li><button class="btn-secondary nav-link active" data-bs-toggle="pill" data-bs-target="#summary_bestScore_chart_1-tab-pane" type="button">Medium Score</button></li>
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#summary_bestScore_chart_2-tab-pane" type="button">Soft Score</button></li>
+        </ul>
+    </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Solver</th>
+                                        <th rowspan="2">Total</th>
+                                        <th rowspan="2">Average</th>
+                                        <th rowspan="2">Standard Deviation</th>
+                                        <th colspan="5">Problem</th>
+                                    </tr>
+                                    <tr>
+                                        <th>example-data-1</th>
+                                        <th>example-data-2</th>
+                                        <th>example-data-3</th>
+                                        <th>example-data-4</th>
+                                        <th>example-data-5</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                        <tr>
+                                            <th>Hill Climbing&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>-2400000hard/-180487medium/-780214soft</td>
+                                            <td>-800000hard/-60163medium/-260072soft</td>
+                                            <td>326598.63/56917.94/93399.71</td>
+                                                            <td>-400000hard/0medium/-144763soft&nbsp;        <span class="badge text-bg-secondary">6</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-800000hard/-43931medium/-261929soft&nbsp;        <span class="badge text-bg-secondary">3</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-1200000hard/-136556medium/-373522soft&nbsp;        <span class="badge text-bg-secondary">1</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>-2400000hard/-184548medium/-788631soft</td>
+                                            <td>-800000hard/-61516medium/-262877soft</td>
+                                            <td>326598.63/57527.98/96658.45</td>
+                                                            <td>-400000hard/0medium/-143941soft&nbsp;        <span class="badge text-bg-secondary">1</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-800000hard/-46165medium/-263993soft&nbsp;        <span class="badge text-bg-secondary">8</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-1200000hard/-138383medium/-380697soft&nbsp;        <span class="badge text-bg-secondary">5</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>-2400000hard/-182626medium/-797030soft</td>
+                                            <td>-800000hard/-60876medium/-265677soft</td>
+                                            <td>326598.63/57115.32/94703.04</td>
+                                                            <td>-400000hard/0medium/-150254soft&nbsp;        <span class="badge text-bg-secondary">9</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-800000hard/-45336medium/-264556soft&nbsp;        <span class="badge text-bg-secondary">7</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-1200000hard/-137290medium/-382220soft&nbsp;        <span class="badge text-bg-secondary">4</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 1000 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>-4400000hard/-477592medium/-1390983soft</td>
+                                            <td>-1100000hard/-119398medium/-347746soft</td>
+                                            <td>591607.98/112752.81/167760.25</td>
+                                                            <td>-400000hard/0medium/-147504soft&nbsp;        <span class="badge text-bg-secondary">8</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-800000hard/-44279medium/-263158soft&nbsp;        <span class="badge text-bg-secondary">4</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-1200000hard/-139082medium/-378899soft&nbsp;        <span class="badge text-bg-secondary">6</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                            <td>-2000000hard/-294231medium/-601422soft&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 0-1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>-2400000hard/-180324medium/-784133soft</td>
+                                            <td>-800000hard/-60108medium/-261378soft</td>
+                                            <td>326598.63/56875.93/94867.7</td>
+                                                            <td>-400000hard/0medium/-143141soft&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-800000hard/-43874medium/-265588soft&nbsp;        <span class="badge text-bg-secondary">1</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-1200000hard/-136450medium/-375404soft&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 1-5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>-2800000hard/-257887medium/-898283soft</td>
+                                            <td>-933334hard/-85963medium/-299428soft</td>
+                                            <td>498887.65/92280.44/143284.55</td>
+                                                            <td>-400000hard/0medium/-144500soft&nbsp;        <span class="badge text-bg-secondary">2</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-800000hard/-43906medium/-263782soft&nbsp;        <span class="badge text-bg-secondary">2</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                            <td>-1600000hard/-213981medium/-490001soft&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 2-1000-10000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>-1200000hard/-45020medium/-408195soft</td>
+                                            <td>-600000hard/-22510medium/-204098soft</td>
+                                            <td>200000.0/22510.0/59381.5</td>
+                                                            <td>-400000hard/0medium/-144716soft&nbsp;        <span class="badge text-bg-secondary">4</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-800000hard/-45020medium/-263479soft&nbsp;        <span class="badge text-bg-secondary">5</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 200&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>-2400000hard/-182339medium/-788344soft</td>
+                                            <td>-800000hard/-60780medium/-262782soft</td>
+                                            <td>326598.63/57100.09/95184.99</td>
+                                                            <td>-400000hard/0medium/-144813soft&nbsp;        <span class="badge text-bg-secondary">7</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-800000hard/-45126medium/-265615soft&nbsp;        <span class="badge text-bg-secondary">6</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-1200000hard/-137213medium/-377916soft&nbsp;        <span class="badge text-bg-secondary">3</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 400&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>-2400000hard/-183811medium/-786836soft</td>
+                                            <td>-800000hard/-61271medium/-262279soft</td>
+                                            <td>326598.63/56827.79/95664.28</td>
+                                                            <td>-400000hard/0medium/-144738soft&nbsp;        <span class="badge text-bg-secondary">5</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-800000hard/-46866medium/-263035soft&nbsp;        <span class="badge text-bg-secondary">9</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-1200000hard/-136945medium/-379063soft&nbsp;        <span class="badge text-bg-secondary">2</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 600&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>-1200000hard/-43460medium/-406216soft</td>
+                                            <td>-600000hard/-21730medium/-203108soft</td>
+                                            <td>200000.0/21730.0/58499.0</td>
+                                                            <td>-400000hard/0medium/-144609soft&nbsp;        <span class="badge text-bg-secondary">3</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                            <td>-800000hard/-43460medium/-261607soft&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="summary_bestScoreScalability-tab-pane">
+                        <h3 class="visually-hidden">Best score scalability summary</h3>
+                        <p>Useful for visualizing the scalability of each solver configuration.</p>
+    <div class="tabbable">
+        <div class="tab-content">
+                <div class="tab-pane show" id="summary_bestScoreScalability_chart_0-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreScalabilitySummaryChart0_307e8"></canvas>
+        <script async src="website/js/bestScoreScalabilitySummaryChart0_307e8.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show active" id="summary_bestScoreScalability_chart_1-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreScalabilitySummaryChart1_21d76"></canvas>
+        <script async src="website/js/bestScoreScalabilitySummaryChart1_21d76.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show" id="summary_bestScoreScalability_chart_2-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreScalabilitySummaryChart2_7ce6c"></canvas>
+        <script async src="website/js/bestScoreScalabilitySummaryChart2_7ce6c.js"></script>
+    </div>
+                </div>
+        </div>
+        <ul class="nav nav-pills justify-content-center mb-2">
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#summary_bestScoreScalability_chart_0-tab-pane" type="button">Hard Score</button></li>
+                <li><button class="btn-secondary nav-link active" data-bs-toggle="pill" data-bs-target="#summary_bestScoreScalability_chart_1-tab-pane" type="button">Medium Score</button></li>
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#summary_bestScoreScalability_chart_2-tab-pane" type="button">Soft Score</button></li>
+        </ul>
+    </div>
+                    </div>
+                    <div class="tab-pane show" id="summary_bestScoreDistribution-tab-pane">
+                        <h3 class="visually-hidden">Best score distribution summary</h3>
+                        <p>Useful for visualizing the reliability of each solver configuration.</p>
+                            <div class="alert alert-info">
+                                <p>Benchmarker did not run multiple subSingles, so there is no distribution and therefore no reliability indication.</p>
+                            </div>
+    <div class="tabbable">
+        <div class="tab-content">
+                <div class="tab-pane show" id="summary_bestScoreDistribution_chart_0-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreDistributionSummaryChart0_3c389"></canvas>
+        <script async src="website/js/bestScoreDistributionSummaryChart0_3c389.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show active" id="summary_bestScoreDistribution_chart_1-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreDistributionSummaryChart1_3010c"></canvas>
+        <script async src="website/js/bestScoreDistributionSummaryChart1_3010c.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show" id="summary_bestScoreDistribution_chart_2-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreDistributionSummaryChart2_bdde9"></canvas>
+        <script async src="website/js/bestScoreDistributionSummaryChart2_bdde9.js"></script>
+    </div>
+                </div>
+        </div>
+        <ul class="nav nav-pills justify-content-center mb-2">
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#summary_bestScoreDistribution_chart_0-tab-pane" type="button">Hard Score</button></li>
+                <li><button class="btn-secondary nav-link active" data-bs-toggle="pill" data-bs-target="#summary_bestScoreDistribution_chart_1-tab-pane" type="button">Medium Score</button></li>
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#summary_bestScoreDistribution_chart_2-tab-pane" type="button">Soft Score</button></li>
+        </ul>
+    </div>
+                    </div>
+                    <div class="tab-pane show" id="summary_winningScoreDifference-tab-pane">
+                        <h3 class="visually-hidden">Winning score difference summary</h3>
+                        <p>Useful for zooming in on the results of the best score summary.</p>
+    <div class="tabbable">
+        <div class="tab-content">
+                <div class="tab-pane show" id="summary_winningScoreDifference_chart_0-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_winningScoreDifferenceSummaryChart0_dcc8e"></canvas>
+        <script async src="website/js/winningScoreDifferenceSummaryChart0_dcc8e.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show active" id="summary_winningScoreDifference_chart_1-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_winningScoreDifferenceSummaryChart1_9f9db"></canvas>
+        <script async src="website/js/winningScoreDifferenceSummaryChart1_9f9db.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show" id="summary_winningScoreDifference_chart_2-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_winningScoreDifferenceSummaryChart2_85015"></canvas>
+        <script async src="website/js/winningScoreDifferenceSummaryChart2_85015.js"></script>
+    </div>
+                </div>
+        </div>
+        <ul class="nav nav-pills justify-content-center mb-2">
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#summary_winningScoreDifference_chart_0-tab-pane" type="button">Hard Score</button></li>
+                <li><button class="btn-secondary nav-link active" data-bs-toggle="pill" data-bs-target="#summary_winningScoreDifference_chart_1-tab-pane" type="button">Medium Score</button></li>
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#summary_winningScoreDifference_chart_2-tab-pane" type="button">Soft Score</button></li>
+        </ul>
+    </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Solver</th>
+                                        <th rowspan="2">Total</th>
+                                        <th rowspan="2">Average</th>
+                                        <th colspan="5">Problem</th>
+                                    </tr>
+                                    <tr>
+                                        <th>example-data-1</th>
+                                        <th>example-data-2</th>
+                                        <th>example-data-3</th>
+                                        <th>example-data-4</th>
+                                        <th>example-data-5</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                        <tr>
+                                            <th>Hill Climbing&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>0hard/-577medium/-62soft</td>
+                                            <td>0hard/-193medium/-21soft</td>
+                                                        <td>0hard/0medium/-1622soft&nbsp;        <span class="badge text-bg-secondary">6</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-471medium/-322soft&nbsp;        <span class="badge text-bg-secondary">3</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-106medium/1882soft&nbsp;        <span class="badge text-bg-secondary">1</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>0hard/-4638medium/-8479soft</td>
+                                            <td>0hard/-1546medium/-2827soft</td>
+                                                        <td>0hard/0medium/-800soft&nbsp;        <span class="badge text-bg-secondary">1</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-2705medium/-2386soft&nbsp;        <span class="badge text-bg-secondary">8</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-1933medium/-5293soft&nbsp;        <span class="badge text-bg-secondary">5</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>0hard/-2716medium/-16878soft</td>
+                                            <td>0hard/-906medium/-5626soft</td>
+                                                        <td>0hard/0medium/-7113soft&nbsp;        <span class="badge text-bg-secondary">9</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-1876medium/-2949soft&nbsp;        <span class="badge text-bg-secondary">7</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-840medium/-6816soft&nbsp;        <span class="badge text-bg-secondary">4</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 1000 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>0hard/-3451medium/-9409soft</td>
+                                            <td>0hard/-863medium/-2353soft</td>
+                                                        <td>0hard/0medium/-4363soft&nbsp;        <span class="badge text-bg-secondary">8</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-819medium/-1551soft&nbsp;        <span class="badge text-bg-secondary">4</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-2632medium/-3495soft&nbsp;        <span class="badge text-bg-secondary">6</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td>0hard/0medium/0soft&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 0-1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>0hard/-414medium/-3981soft</td>
+                                            <td>0hard/-138medium/-1327soft</td>
+                                                        <td>0hard/0medium/0soft&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-414medium/-3981soft&nbsp;        <span class="badge text-bg-secondary">1</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/0medium/0soft&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 1-5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>0hard/-446medium/-3534soft</td>
+                                            <td>0hard/-149medium/-1178soft</td>
+                                                        <td>0hard/0medium/-1359soft&nbsp;        <span class="badge text-bg-secondary">2</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-446medium/-2175soft&nbsp;        <span class="badge text-bg-secondary">2</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td>0hard/0medium/0soft&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 2-1000-10000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>0hard/-1560medium/-3447soft</td>
+                                            <td>0hard/-780medium/-1724soft</td>
+                                                        <td>0hard/0medium/-1575soft&nbsp;        <span class="badge text-bg-secondary">4</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-1560medium/-1872soft&nbsp;        <span class="badge text-bg-secondary">5</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 200&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>0hard/-2429medium/-8192soft</td>
+                                            <td>0hard/-810medium/-2731soft</td>
+                                                        <td>0hard/0medium/-1672soft&nbsp;        <span class="badge text-bg-secondary">7</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-1666medium/-4008soft&nbsp;        <span class="badge text-bg-secondary">6</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-763medium/-2512soft&nbsp;        <span class="badge text-bg-secondary">3</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 400&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>0hard/-3901medium/-6684soft</td>
+                                            <td>0hard/-1301medium/-2228soft</td>
+                                                        <td>0hard/0medium/-1597soft&nbsp;        <span class="badge text-bg-secondary">5</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-3406medium/-1428soft&nbsp;        <span class="badge text-bg-secondary">9</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/-495medium/-3659soft&nbsp;        <span class="badge text-bg-secondary">2</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 600&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>0hard/0medium/-1468soft</td>
+                                            <td>0hard/0medium/-734soft</td>
+                                                        <td>0hard/0medium/-1468soft&nbsp;        <span class="badge text-bg-secondary">3</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0hard/0medium/0soft&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="summary_worstScoreDifferencePercentage-tab-pane">
+                        <h3 class="visually-hidden">Worst score difference percentage summary (ROI)</h3>
+                        <p>Useful for visualizing the return on investment (ROI) to decision makers.</p>
+    <div class="tabbable">
+        <div class="tab-content">
+                <div class="tab-pane show" id="summary_worstScoreDifferencePercentage_chart_0-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_worstScoreDifferencePercentageSummaryChart0_80b2b"></canvas>
+        <script async src="website/js/worstScoreDifferencePercentageSummaryChart0_80b2b.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show active" id="summary_worstScoreDifferencePercentage_chart_1-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_worstScoreDifferencePercentageSummaryChart1_926bf"></canvas>
+        <script async src="website/js/worstScoreDifferencePercentageSummaryChart1_926bf.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show" id="summary_worstScoreDifferencePercentage_chart_2-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_worstScoreDifferencePercentageSummaryChart2_de413"></canvas>
+        <script async src="website/js/worstScoreDifferencePercentageSummaryChart2_de413.js"></script>
+    </div>
+                </div>
+        </div>
+        <ul class="nav nav-pills justify-content-center mb-2">
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#summary_worstScoreDifferencePercentage_chart_0-tab-pane" type="button">Hard Score</button></li>
+                <li><button class="btn-secondary nav-link active" data-bs-toggle="pill" data-bs-target="#summary_worstScoreDifferencePercentage_chart_1-tab-pane" type="button">Medium Score</button></li>
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#summary_worstScoreDifferencePercentage_chart_2-tab-pane" type="button">Soft Score</button></li>
+        </ul>
+    </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Solver</th>
+                                        <th rowspan="2">Average</th>
+                                        <th colspan="5">Problem</th>
+                                    </tr>
+                                    <tr>
+                                        <th>example-data-1</th>
+                                        <th>example-data-2</th>
+                                        <th>example-data-3</th>
+                                        <th>example-data-4</th>
+                                        <th>example-data-5</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                        <tr>
+                                            <th>Hill Climbing&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>0.00%/2.69%/1.83%</td>
+                                                        <td>0.00%/0.00%/3.65%&nbsp;        <span class="badge text-bg-secondary">6</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/6.26%/0.42%&nbsp;        <span class="badge text-bg-secondary">3</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/1.82%/1.42%&nbsp;        <span class="badge text-bg-secondary">1</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>0.00%/0.67%/1.12%</td>
+                                                        <td>0.00%/0.00%/4.20%&nbsp;        <span class="badge text-bg-secondary">1</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/1.50%/-0.36%&nbsp;        <span class="badge text-bg-secondary">8</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/0.50%/-0.47%&nbsp;        <span class="badge text-bg-secondary">5</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>0.00%/1.52%/-0.48%</td>
+                                                        <td>0.00%/0.00%/0.00%&nbsp;        <span class="badge text-bg-secondary">9</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/3.26%/-0.58%&nbsp;        <span class="badge text-bg-secondary">7</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/1.29%/-0.88%&nbsp;        <span class="badge text-bg-secondary">4</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 1000 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>0.00%/1.38%/0.45%</td>
+                                                        <td>0.00%/0.00%/1.83%&nbsp;        <span class="badge text-bg-secondary">8</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/5.52%/-0.05%&nbsp;        <span class="badge text-bg-secondary">4</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/0.00%/0.00%&nbsp;        <span class="badge text-bg-secondary">6</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td>0.00%/0.00%/0.00%&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 0-1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>0.00%/2.76%/1.56%</td>
+                                                        <td>0.00%/0.00%/4.73%&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/6.38%/-0.97%&nbsp;        <span class="badge text-bg-secondary">1</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/1.89%/0.92%&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 1-5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>0.00%/2.11%/1.18%</td>
+                                                        <td>0.00%/0.00%/3.83%&nbsp;        <span class="badge text-bg-secondary">2</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/6.32%/-0.28%&nbsp;        <span class="badge text-bg-secondary">2</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td>0.00%/0.00%/0.00%&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 2-1000-10000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>0.00%/1.97%/1.76%</td>
+                                                        <td>0.00%/0.00%/3.69%&nbsp;        <span class="badge text-bg-secondary">4</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/3.94%/-0.17%&nbsp;        <span class="badge text-bg-secondary">5</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 200&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>0.00%/1.69%/0.97%</td>
+                                                        <td>0.00%/0.00%/3.62%&nbsp;        <span class="badge text-bg-secondary">7</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/3.71%/-0.98%&nbsp;        <span class="badge text-bg-secondary">6</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/1.34%/0.26%&nbsp;        <span class="badge text-bg-secondary">3</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 400&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>0.00%/0.51%/1.21%</td>
+                                                        <td>0.00%/0.00%/3.67%&nbsp;        <span class="badge text-bg-secondary">5</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/0.00%/0.00%&nbsp;        <span class="badge text-bg-secondary">9</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/1.54%/-0.04%&nbsp;        <span class="badge text-bg-secondary">2</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 600&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>0.00%/3.63%/2.15%</td>
+                                                        <td>0.00%/0.00%/3.76%&nbsp;        <span class="badge text-bg-secondary">3</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td>0.00%/7.27%/0.54%&nbsp;        <span class="badge text-bg-success">0</span>
+
+        <span class="badge text-bg-warning" data-toggle="tooltip" title="Infeasible score">!</span>
+</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="summary_performance">
+            <h2>Performance summary</h2>
+            <div class="tabbable">
+                <ul class="nav nav-pills justify-content-center">
+                    <li class="active">
+                        <button class="nav-link active" id="summary_scoreCalculationSpeed-tab" data-bs-toggle="pill" data-bs-target="#summary_scoreCalculationSpeed-tab-pane" type="button">Score calculation speed</button>
+                    </li>
+                    <li class="active">
+                        <button class="nav-link" id="summary_moveEvaluationSpeed-tab" data-bs-toggle="pill" data-bs-target="#summary_moveEvaluationSpeed-tab-pane" type="button">Move evaluation speed</button>
+                    </li>
+                    <li>
+                        <button class="nav-link" id="summary_worstScoreCalculationSpeedDifferencePercentage-tab" data-bs-toggle="pill" data-bs-target="#summary_worstScoreCalculationSpeedDifferencePercentage-tab-pane" type="button">Worst score calculation speed difference percentage</button>
+                    </li>
+                    <li>
+                        <button class="nav-link" id="summary_timeSpent-tab" data-bs-toggle="pill" data-bs-target="#summary_timeSpent-tab-pane" type="button">Time spent</button>
+                    </li>
+                    <li>
+                        <button class="nav-link" id="summary_timeSpentScalability-tab" data-bs-toggle="pill" data-bs-target="#summary_timeSpentScalability-tab-pane" type="button">Time spent scalability</button>
+                    </li>
+                    <li>
+                        <button class="nav-link" id="summary_bestScorePerTimeSpent-tab" data-bs-toggle="pill" data-bs-target="#summary_bestScorePerTimeSpent-tab-pane" type="button">Best score per time spent</button>
+                    </li>
+                </ul>
+                <div class="tab-content p-2">
+                    <div class="tab-pane show active" id="summary_scoreCalculationSpeed-tab-pane">
+                        <h3 class="visually-hidden">Score calculation speed summary</h3>
+                        <p>
+                            Useful for comparing different score calculators and/or constraint implementations
+                            (presuming that the solver configurations do not differ otherwise).
+                            Also useful to measure the scalability cost of an extra constraint.
+                        </p>
+    <div class="chart-container mb-2">
+        <canvas id="chart_scoreCalculationSpeedSummaryChart_303cd"></canvas>
+        <script async src="website/js/scoreCalculationSpeedSummaryChart_303cd.js"></script>
+    </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Solver</th>
+                                        <th rowspan="2">Average</th>
+                                        <th colspan="5">Problem</th>
+                                    </tr>
+                                    <tr>
+                                            <th>example-data-1</th>
+                                            <th>example-data-2</th>
+                                            <th>example-data-3</th>
+                                            <th>example-data-4</th>
+                                            <th>example-data-5</th>
+                                    </tr>
+                                    <tr class="table-info">
+                                        <th>Problem scale</th>
+                                        <td>265,437,460</td>
+                                            <td class="problemScale">78,761,812</td>
+                                            <td class="problemScale">164,632,584</td>
+                                            <td class="problemScale">259,200,590</td>
+                                            <td class="problemScale">359,743,372</td>
+                                            <td class="problemScale">464,848,945</td>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                        <tr>
+                                            <th>Hill Climbing&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>12,945/s</td>
+                                                            <td>15,770/s</td>
+                                                            <td>12,963/s</td>
+                                                            <td>10,102/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>13,339/s</td>
+                                                            <td>16,916/s</td>
+                                                            <td>12,905/s</td>
+                                                            <td>10,196/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>13,353/s</td>
+                                                            <td>17,643/s</td>
+                                                            <td>12,471/s</td>
+                                                            <td>9,947/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 1000 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>12,677/s</td>
+                                                            <td>18,555/s</td>
+                                                            <td>13,072/s</td>
+                                                            <td>10,069/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                            <td>9,012/s</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 0-1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>13,856/s</td>
+                                                            <td>18,867/s</td>
+                                                            <td>12,945/s</td>
+                                                            <td>9,756/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 1-5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>12,894/s</td>
+                                                            <td>17,883/s</td>
+                                                            <td>12,524/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                            <td>8,277/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 2-1000-10000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>14,881/s</td>
+                                                            <td>17,094/s</td>
+                                                            <td>12,669/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 200&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>13,928/s</td>
+                                                            <td>18,814/s</td>
+                                                            <td>12,846/s</td>
+                                                            <td>10,125/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 400&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>13,435/s</td>
+                                                            <td>18,802/s</td>
+                                                            <td>12,238/s</td>
+                                                            <td>9,266/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 600&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>15,774/s</td>
+                                                            <td>18,722/s</td>
+                                                            <td>12,827/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane show active" id="summary_moveEvaluationSpeed-tab-pane">
+                        <h3 class="visually-hidden">Move evaluation speed summary</h3>
+                        <p>
+                            Useful for comparing different score calculators and/or constraint implementations
+                            (presuming that the solver configurations do not differ otherwise).
+                            Also useful to measure the scalability cost of an extra constraint.
+                        </p>
+    <div class="chart-container mb-2">
+        <canvas id="chart_moveEvaluationSpeedSummaryChart_b1852"></canvas>
+        <script async src="website/js/moveEvaluationSpeedSummaryChart_b1852.js"></script>
+    </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Solver</th>
+                                        <th rowspan="2">Average</th>
+                                        <th colspan="5">Problem</th>
+                                    </tr>
+                                    <tr>
+                                            <th>example-data-1</th>
+                                            <th>example-data-2</th>
+                                            <th>example-data-3</th>
+                                            <th>example-data-4</th>
+                                            <th>example-data-5</th>
+                                    </tr>
+                                    <tr class="table-info">
+                                        <th>Problem scale</th>
+                                        <td>265,437,460</td>
+                                            <td class="problemScale">78,761,812</td>
+                                            <td class="problemScale">164,632,584</td>
+                                            <td class="problemScale">259,200,590</td>
+                                            <td class="problemScale">359,743,372</td>
+                                            <td class="problemScale">464,848,945</td>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                        <tr>
+                                            <th>Hill Climbing&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>12,945/s</td>
+                                                            <td>15,770/s</td>
+                                                            <td>12,963/s</td>
+                                                            <td>10,102/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>13,338/s</td>
+                                                            <td>16,915/s</td>
+                                                            <td>12,905/s</td>
+                                                            <td>10,196/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>13,353/s</td>
+                                                            <td>17,643/s</td>
+                                                            <td>12,471/s</td>
+                                                            <td>9,947/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 1000 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>12,677/s</td>
+                                                            <td>18,555/s</td>
+                                                            <td>13,072/s</td>
+                                                            <td>10,069/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                            <td>9,012/s</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 0-1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>13,855/s</td>
+                                                            <td>18,866/s</td>
+                                                            <td>12,945/s</td>
+                                                            <td>9,756/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 1-5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>12,894/s</td>
+                                                            <td>17,883/s</td>
+                                                            <td>12,524/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                            <td>8,277/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 2-1000-10000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>14,881/s</td>
+                                                            <td>17,094/s</td>
+                                                            <td>12,669/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 200&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>13,928/s</td>
+                                                            <td>18,814/s</td>
+                                                            <td>12,846/s</td>
+                                                            <td>10,125/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 400&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>13,435/s</td>
+                                                            <td>18,802/s</td>
+                                                            <td>12,238/s</td>
+                                                            <td>9,266/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 600&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>15,774/s</td>
+                                                            <td>18,722/s</td>
+                                                            <td>12,826/s</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="summary_worstScoreCalculationSpeedDifferencePercentage-tab-pane">
+                        <h3 class="visually-hidden">Worst score calculation speed difference percentage</h3>
+                        <p>
+                            Useful for comparing different score calculators and/or constraint implementations
+                            (presuming that the solver configurations do not differ otherwise).
+                            Also useful to measure the scalability cost of an extra constraint.
+                        </p>
+    <div class="chart-container mb-2">
+        <canvas id="chart_worstScoreCalculationSpeedDifferencePercentageSummaryChart_bfa52"></canvas>
+        <script async src="website/js/worstScoreCalculationSpeedDifferencePercentageSummaryChart_bfa52.js"></script>
+    </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Solver</th>
+                                        <th rowspan="2">Average</th>
+                                        <th colspan="5">Problem</th>
+                                    </tr>
+                                    <tr>
+                                            <th>example-data-1</th>
+                                            <th>example-data-2</th>
+                                            <th>example-data-3</th>
+                                            <th>example-data-4</th>
+                                            <th>example-data-5</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                        <tr>
+                                            <th>Hill Climbing&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>4.98%</td>
+                                                        <td>0.00%</td>
+                                                        <td>5.92%</td>
+                                                        <td>9.02%</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>7.58%</td>
+                                                        <td>7.27%</td>
+                                                        <td>5.45%</td>
+                                                        <td>10.04%</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>7.04%</td>
+                                                        <td>11.88%</td>
+                                                        <td>1.90%</td>
+                                                        <td>7.35%</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 1000 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>8.29%</td>
+                                                        <td>17.66%</td>
+                                                        <td>6.81%</td>
+                                                        <td>8.67%</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td>0.00%</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 0-1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>10.23%</td>
+                                                        <td>19.64%</td>
+                                                        <td>5.78%</td>
+                                                        <td>5.29%</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 1-5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>5.25%</td>
+                                                        <td>13.40%</td>
+                                                        <td>2.34%</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td>0.00%</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 2-1000-10000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>5.96%</td>
+                                                        <td>8.40%</td>
+                                                        <td>3.52%</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 200&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>11.18%</td>
+                                                        <td>19.30%</td>
+                                                        <td>4.97%</td>
+                                                        <td>9.27%</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 400&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>6.41%</td>
+                                                        <td>19.23%</td>
+                                                        <td>0.00%</td>
+                                                        <td>0.00%</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 600&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                                <td>11.77%</td>
+                                                        <td>18.72%</td>
+                                                        <td>4.81%</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="summary_timeSpent-tab-pane">
+                        <h3 class="visually-hidden">Time spent summary</h3>
+                        <p>Useful for visualizing the performance of construction heuristics (presuming that no other solver phases are configured).</p>
+    <div class="chart-container mb-2">
+        <canvas id="chart_timeSpentSummaryChart_48cb"></canvas>
+        <script async src="website/js/timeSpentSummaryChart_48cb.js"></script>
+    </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Solver</th>
+                                        <th rowspan="2">Average</th>
+                                        <th colspan="5">Problem</th>
+                                    </tr>
+                                    <tr>
+                                            <th>example-data-1</th>
+                                            <th>example-data-2</th>
+                                            <th>example-data-3</th>
+                                            <th>example-data-4</th>
+                                            <th>example-data-5</th>
+                                    </tr>
+                                    <tr class="table-info">
+                                        <th>Problem scale</th>
+                                        <td>265,437,460</td>
+                                            <td class="problemScale">78,761,812</td>
+                                            <td class="problemScale">164,632,584</td>
+                                            <td class="problemScale">259,200,590</td>
+                                            <td class="problemScale">359,743,372</td>
+                                            <td class="problemScale">464,848,945</td>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                        <tr>
+                                            <th>Hill Climbing&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>5,000</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>5,000</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 500 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>5,000</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tabu Search 1000 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>5,000</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 0-1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>5,000</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 1-5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>5,000</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Simulated Annealing 2-1000-10000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>5,000</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 200&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>5,000</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 400&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>5,000</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Late Acceptance 600&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+</th>
+                                            <td>5,000</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                            <td>5.000 s. (5,000 ms.)</td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                                        <td><span class="label label-important">Failed</span></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="summary_timeSpentScalability-tab-pane">
+                        <h3 class="visually-hidden">Time spent scalability summary</h3>
+                        <p>Useful for extrapolating the scalability of construction heuristics (presuming that no other solver phases are configured).</p>
+    <div class="chart-container mb-2">
+        <canvas id="chart_timeSpentScalabilitySummaryChart_65da1"></canvas>
+        <script async src="website/js/timeSpentScalabilitySummaryChart_65da1.js"></script>
+    </div>
+                    </div>
+                    <div class="tab-pane show" id="summary_bestScorePerTimeSpent-tab-pane">
+                        <h3 class="visually-hidden">Best score per time spent summary</h3>
+                        <p>Useful for visualizing trade-off between the best score versus the time spent for construction heuristics (presuming that no other solver phases are configured).</p>
+    <div class="tabbable">
+        <div class="tab-content">
+                <div class="tab-pane show" id="summary_bestScorePerTimeSpent_chart_0-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScorePerTimeSpentSummaryChart0_31ad2"></canvas>
+        <script async src="website/js/bestScorePerTimeSpentSummaryChart0_31ad2.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show active" id="summary_bestScorePerTimeSpent_chart_1-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScorePerTimeSpentSummaryChart1_befc6"></canvas>
+        <script async src="website/js/bestScorePerTimeSpentSummaryChart1_befc6.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show" id="summary_bestScorePerTimeSpent_chart_2-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScorePerTimeSpentSummaryChart2_8b933"></canvas>
+        <script async src="website/js/bestScorePerTimeSpentSummaryChart2_8b933.js"></script>
+    </div>
+                </div>
+        </div>
+        <ul class="nav nav-pills justify-content-center mb-2">
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#summary_bestScorePerTimeSpent_chart_0-tab-pane" type="button">Hard Score</button></li>
+                <li><button class="btn-secondary nav-link active" data-bs-toggle="pill" data-bs-target="#summary_bestScorePerTimeSpent_chart_1-tab-pane" type="button">Medium Score</button></li>
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#summary_bestScorePerTimeSpent_chart_2-tab-pane" type="button">Soft Score</button></li>
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="problemBenchmarkResult">
+            <h2>Problem benchmarks</h2>
+                <section id="problemBenchmark_example-002Ddata-002D1">
+                    <h3>example-data-1</h3>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Entity count</th>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <th>Variable count</th>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <th>Maximum value count</th>
+                                <td>55</td>
+                            </tr>
+                            <tr>
+                                <th>Problem scale</th>
+                                <td>78,761,812</td>
+                            </tr>
+                                <tr>
+                                    <th>Time to load input solution</th>
+                                    <td>0.009 s. (9 ms.)</td>
+                                </tr>
+                                <tr>
+                                    <th>Memory usage after loading input solution</th>
+                                    <td>13,738,192 bytes on average</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                        <div class="tabbable">
+                            <ul class="nav nav-pills justify-content-center">
+                                    <li class="nav-item">
+                                        <button class="nav-link active" id="problemStatistic_example-002Ddata-002D1_BEST_SCORE-tab" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D1_BEST_SCORE-tab-pane" type="button">Best Score</button>
+                                    </li>
+                            </ul>
+                            <div class="tab-content p-2">
+                                    <div class="tab-pane show active" id="problemStatistic_example-002Ddata-002D1_BEST_SCORE-tab-pane">
+    <div class="tabbable">
+        <div class="tab-content">
+                <div class="tab-pane show" id="problemStatistic_example-002Ddata-002D1_BEST_SCORE_chart_0-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart0_78f61"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart0_78f61.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show active" id="problemStatistic_example-002Ddata-002D1_BEST_SCORE_chart_1-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart1_a2874"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart1_a2874.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show" id="problemStatistic_example-002Ddata-002D1_BEST_SCORE_chart_2-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart2_663a"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart2_663a.js"></script>
+    </div>
+                </div>
+        </div>
+        <ul class="nav nav-pills justify-content-center mb-2">
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D1_BEST_SCORE_chart_0-tab-pane" type="button">Hard Score</button></li>
+                <li><button class="btn-secondary nav-link active" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D1_BEST_SCORE_chart_1-tab-pane" type="button">Medium Score</button></li>
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D1_BEST_SCORE_chart_2-tab-pane" type="button">Soft Score</button></li>
+        </ul>
+    </div>
+                                            <span>CSV files per solver:</span>
+                                            <div class="btn-group">
+                                                    <button class="btn" onclick="window.location.href='example-data-1/Hill Climbing/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-1/Tabu Search 500 - 1000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-1/Tabu Search 500 - 5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-1/Tabu Search 1000 - 5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-1/Simulated Annealing 0-1000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-1/Simulated Annealing 1-5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-1/Simulated Annealing 2-1000-10000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-1/Late Acceptance 200/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-1/Late Acceptance 400/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-1/Late Acceptance 600/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <section id="singleBenchmark_example-002Ddata-002D1_Hill-002D0020Climbing">
+                            <h4>example-data-1_Hill Climbing</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D1_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00201000">
+                            <h4>example-data-1_Tabu Search 500 - 1000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D1_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00205000">
+                            <h4>example-data-1_Tabu Search 500 - 5000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D1_Tabu-002D0020Search-002D00201000-002D0020-002D-002D00205000">
+                            <h4>example-data-1_Tabu Search 1000 - 5000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D1_Simulated-002D0020Annealing-002D00200-002D1000">
+                            <h4>example-data-1_Simulated Annealing 0-1000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D1_Simulated-002D0020Annealing-002D00201-002D5000">
+                            <h4>example-data-1_Simulated Annealing 1-5000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D1_Simulated-002D0020Annealing-002D00202-002D1000-002D10000">
+                            <h4>example-data-1_Simulated Annealing 2-1000-10000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D1_Late-002D0020Acceptance-002D0020200">
+                            <h4>example-data-1_Late Acceptance 200</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D1_Late-002D0020Acceptance-002D0020400">
+                            <h4>example-data-1_Late Acceptance 400</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D1_Late-002D0020Acceptance-002D0020600">
+                            <h4>example-data-1_Late Acceptance 600</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                </section>
+                <section id="problemBenchmark_example-002Ddata-002D2">
+                    <h3>example-data-2</h3>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Entity count</th>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <th>Variable count</th>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <th>Maximum value count</th>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <th>Problem scale</th>
+                                <td>164,632,584</td>
+                            </tr>
+                                <tr>
+                                    <th>Time to load input solution</th>
+                                    <td>0.031 s. (31 ms.)</td>
+                                </tr>
+                                <tr>
+                                    <th>Memory usage after loading input solution</th>
+                                    <td>14,083,257 bytes on average</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                        <div class="tabbable">
+                            <ul class="nav nav-pills justify-content-center">
+                                    <li class="nav-item">
+                                        <button class="nav-link active" id="problemStatistic_example-002Ddata-002D2_BEST_SCORE-tab" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D2_BEST_SCORE-tab-pane" type="button">Best Score</button>
+                                    </li>
+                            </ul>
+                            <div class="tab-content p-2">
+                                    <div class="tab-pane show active" id="problemStatistic_example-002Ddata-002D2_BEST_SCORE-tab-pane">
+    <div class="tabbable">
+        <div class="tab-content">
+                <div class="tab-pane show" id="problemStatistic_example-002Ddata-002D2_BEST_SCORE_chart_0-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart0_a3dc2"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart0_a3dc2.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show active" id="problemStatistic_example-002Ddata-002D2_BEST_SCORE_chart_1-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart1_a0d69"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart1_a0d69.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show" id="problemStatistic_example-002Ddata-002D2_BEST_SCORE_chart_2-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart2_d2727"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart2_d2727.js"></script>
+    </div>
+                </div>
+        </div>
+        <ul class="nav nav-pills justify-content-center mb-2">
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D2_BEST_SCORE_chart_0-tab-pane" type="button">Hard Score</button></li>
+                <li><button class="btn-secondary nav-link active" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D2_BEST_SCORE_chart_1-tab-pane" type="button">Medium Score</button></li>
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D2_BEST_SCORE_chart_2-tab-pane" type="button">Soft Score</button></li>
+        </ul>
+    </div>
+                                            <span>CSV files per solver:</span>
+                                            <div class="btn-group">
+                                                    <button class="btn" onclick="window.location.href='example-data-2/Hill Climbing/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-2/Tabu Search 500 - 1000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-2/Tabu Search 500 - 5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-2/Tabu Search 1000 - 5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-2/Simulated Annealing 0-1000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-2/Simulated Annealing 1-5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-2/Simulated Annealing 2-1000-10000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-2/Late Acceptance 200/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-2/Late Acceptance 400/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-2/Late Acceptance 600/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <section id="singleBenchmark_example-002Ddata-002D2_Hill-002D0020Climbing">
+                            <h4>example-data-2_Hill Climbing</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D2_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00201000">
+                            <h4>example-data-2_Tabu Search 500 - 1000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D2_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00205000">
+                            <h4>example-data-2_Tabu Search 500 - 5000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D2_Tabu-002D0020Search-002D00201000-002D0020-002D-002D00205000">
+                            <h4>example-data-2_Tabu Search 1000 - 5000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D2_Simulated-002D0020Annealing-002D00200-002D1000">
+                            <h4>example-data-2_Simulated Annealing 0-1000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D2_Simulated-002D0020Annealing-002D00201-002D5000">
+                            <h4>example-data-2_Simulated Annealing 1-5000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D2_Simulated-002D0020Annealing-002D00202-002D1000-002D10000">
+                            <h4>example-data-2_Simulated Annealing 2-1000-10000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D2_Late-002D0020Acceptance-002D0020200">
+                            <h4>example-data-2_Late Acceptance 200</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D2_Late-002D0020Acceptance-002D0020400">
+                            <h4>example-data-2_Late Acceptance 400</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D2_Late-002D0020Acceptance-002D0020600">
+                            <h4>example-data-2_Late Acceptance 600</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                </section>
+                <section id="problemBenchmark_example-002Ddata-002D3">
+                    <h3>example-data-3</h3>
+                        <div class="alert alert-danger">
+                            <p>3 benchmarks have failed!</p>
+                        </div>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Entity count</th>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <th>Variable count</th>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <th>Maximum value count</th>
+                                <td>145</td>
+                            </tr>
+                            <tr>
+                                <th>Problem scale</th>
+                                <td>259,200,590</td>
+                            </tr>
+                                <tr>
+                                    <th>Time to load input solution</th>
+                                    <td>0.064 s. (64 ms.)</td>
+                                </tr>
+                                <tr>
+                                    <th>Memory usage after loading input solution</th>
+                                    <td>14,910,642 bytes on average</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                        <div class="tabbable">
+                            <ul class="nav nav-pills justify-content-center">
+                                    <li class="nav-item">
+                                        <button class="nav-link active" id="problemStatistic_example-002Ddata-002D3_BEST_SCORE-tab" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D3_BEST_SCORE-tab-pane" type="button">Best Score</button>
+                                    </li>
+                            </ul>
+                            <div class="tab-content p-2">
+                                    <div class="tab-pane show active" id="problemStatistic_example-002Ddata-002D3_BEST_SCORE-tab-pane">
+    <div class="tabbable">
+        <div class="tab-content">
+                <div class="tab-pane show" id="problemStatistic_example-002Ddata-002D3_BEST_SCORE_chart_0-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart0_2312d"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart0_2312d.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show active" id="problemStatistic_example-002Ddata-002D3_BEST_SCORE_chart_1-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart1_e2feb"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart1_e2feb.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show" id="problemStatistic_example-002Ddata-002D3_BEST_SCORE_chart_2-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart2_d8282"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart2_d8282.js"></script>
+    </div>
+                </div>
+        </div>
+        <ul class="nav nav-pills justify-content-center mb-2">
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D3_BEST_SCORE_chart_0-tab-pane" type="button">Hard Score</button></li>
+                <li><button class="btn-secondary nav-link active" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D3_BEST_SCORE_chart_1-tab-pane" type="button">Medium Score</button></li>
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D3_BEST_SCORE_chart_2-tab-pane" type="button">Soft Score</button></li>
+        </ul>
+    </div>
+                                            <span>CSV files per solver:</span>
+                                            <div class="btn-group">
+                                                    <button class="btn" onclick="window.location.href='example-data-3/Hill Climbing/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-3/Tabu Search 500 - 1000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-3/Tabu Search 500 - 5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-3/Tabu Search 1000 - 5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-3/Simulated Annealing 0-1000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-3/Simulated Annealing 1-5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-3/Simulated Annealing 2-1000-10000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-3/Late Acceptance 200/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-3/Late Acceptance 400/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-3/Late Acceptance 600/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <section id="singleBenchmark_example-002Ddata-002D3_Hill-002D0020Climbing">
+                            <h4>example-data-3_Hill Climbing</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D3_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00201000">
+                            <h4>example-data-3_Tabu Search 500 - 1000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D3_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00205000">
+                            <h4>example-data-3_Tabu Search 500 - 5000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D3_Tabu-002D0020Search-002D00201000-002D0020-002D-002D00205000">
+                            <h4>example-data-3_Tabu Search 1000 - 5000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D3_Simulated-002D0020Annealing-002D00200-002D1000">
+                            <h4>example-data-3_Simulated Annealing 0-1000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D3_Simulated-002D0020Annealing-002D00201-002D5000">
+                            <h4>example-data-3_Simulated Annealing 1-5000</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D3_Simulated-002D0020Annealing-002D00202-002D1000-002D10000">
+                            <h4>example-data-3_Simulated Annealing 2-1000-10000</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D3_Late-002D0020Acceptance-002D0020200">
+                            <h4>example-data-3_Late Acceptance 200</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D3_Late-002D0020Acceptance-002D0020400">
+                            <h4>example-data-3_Late Acceptance 400</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D3_Late-002D0020Acceptance-002D0020600">
+                            <h4>example-data-3_Late Acceptance 600</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                </section>
+                <section id="problemBenchmark_example-002Ddata-002D4">
+                    <h3>example-data-4</h3>
+                        <div class="alert alert-danger">
+                            <p>9 benchmarks have failed!</p>
+                        </div>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Entity count</th>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <th>Variable count</th>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <th>Maximum value count</th>
+                                <td>190</td>
+                            </tr>
+                            <tr>
+                                <th>Problem scale</th>
+                                <td>359,743,372</td>
+                            </tr>
+                                <tr>
+                                    <th>Time to load input solution</th>
+                                    <td>0.104 s. (104 ms.)</td>
+                                </tr>
+                                <tr>
+                                    <th>Memory usage after loading input solution</th>
+                                    <td>27,517,424 bytes on average</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                        <div class="tabbable">
+                            <ul class="nav nav-pills justify-content-center">
+                                    <li class="nav-item">
+                                        <button class="nav-link active" id="problemStatistic_example-002Ddata-002D4_BEST_SCORE-tab" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D4_BEST_SCORE-tab-pane" type="button">Best Score</button>
+                                    </li>
+                            </ul>
+                            <div class="tab-content p-2">
+                                    <div class="tab-pane show active" id="problemStatistic_example-002Ddata-002D4_BEST_SCORE-tab-pane">
+    <div class="tabbable">
+        <div class="tab-content">
+                <div class="tab-pane show" id="problemStatistic_example-002Ddata-002D4_BEST_SCORE_chart_0-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart0_afad4"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart0_afad4.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show active" id="problemStatistic_example-002Ddata-002D4_BEST_SCORE_chart_1-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart1_a32d3"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart1_a32d3.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show" id="problemStatistic_example-002Ddata-002D4_BEST_SCORE_chart_2-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart2_d0216"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart2_d0216.js"></script>
+    </div>
+                </div>
+        </div>
+        <ul class="nav nav-pills justify-content-center mb-2">
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D4_BEST_SCORE_chart_0-tab-pane" type="button">Hard Score</button></li>
+                <li><button class="btn-secondary nav-link active" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D4_BEST_SCORE_chart_1-tab-pane" type="button">Medium Score</button></li>
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D4_BEST_SCORE_chart_2-tab-pane" type="button">Soft Score</button></li>
+        </ul>
+    </div>
+                                            <span>CSV files per solver:</span>
+                                            <div class="btn-group">
+                                                    <button class="btn" onclick="window.location.href='example-data-4/Hill Climbing/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-4/Tabu Search 500 - 1000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-4/Tabu Search 500 - 5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-4/Tabu Search 1000 - 5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-4/Simulated Annealing 0-1000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-4/Simulated Annealing 1-5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-4/Simulated Annealing 2-1000-10000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-4/Late Acceptance 200/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-4/Late Acceptance 400/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-4/Late Acceptance 600/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <section id="singleBenchmark_example-002Ddata-002D4_Hill-002D0020Climbing">
+                            <h4>example-data-4_Hill Climbing</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D4_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00201000">
+                            <h4>example-data-4_Tabu Search 500 - 1000</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D4_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00205000">
+                            <h4>example-data-4_Tabu Search 500 - 5000</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D4_Tabu-002D0020Search-002D00201000-002D0020-002D-002D00205000">
+                            <h4>example-data-4_Tabu Search 1000 - 5000</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D4_Simulated-002D0020Annealing-002D00200-002D1000">
+                            <h4>example-data-4_Simulated Annealing 0-1000</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D4_Simulated-002D0020Annealing-002D00201-002D5000">
+                            <h4>example-data-4_Simulated Annealing 1-5000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D4_Simulated-002D0020Annealing-002D00202-002D1000-002D10000">
+                            <h4>example-data-4_Simulated Annealing 2-1000-10000</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D4_Late-002D0020Acceptance-002D0020200">
+                            <h4>example-data-4_Late Acceptance 200</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D4_Late-002D0020Acceptance-002D0020400">
+                            <h4>example-data-4_Late Acceptance 400</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D4_Late-002D0020Acceptance-002D0020600">
+                            <h4>example-data-4_Late Acceptance 600</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                </section>
+                <section id="problemBenchmark_example-002Ddata-002D5">
+                    <h3>example-data-5</h3>
+                        <div class="alert alert-danger">
+                            <p>9 benchmarks have failed!</p>
+                        </div>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Entity count</th>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <th>Variable count</th>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <th>Maximum value count</th>
+                                <td>235</td>
+                            </tr>
+                            <tr>
+                                <th>Problem scale</th>
+                                <td>464,848,945</td>
+                            </tr>
+                                <tr>
+                                    <th>Time to load input solution</th>
+                                    <td>0.155 s. (155 ms.)</td>
+                                </tr>
+                                <tr>
+                                    <th>Memory usage after loading input solution</th>
+                                    <td>45,018,096 bytes on average</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                        <div class="tabbable">
+                            <ul class="nav nav-pills justify-content-center">
+                                    <li class="nav-item">
+                                        <button class="nav-link active" id="problemStatistic_example-002Ddata-002D5_BEST_SCORE-tab" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D5_BEST_SCORE-tab-pane" type="button">Best Score</button>
+                                    </li>
+                            </ul>
+                            <div class="tab-content p-2">
+                                    <div class="tab-pane show active" id="problemStatistic_example-002Ddata-002D5_BEST_SCORE-tab-pane">
+    <div class="tabbable">
+        <div class="tab-content">
+                <div class="tab-pane show" id="problemStatistic_example-002Ddata-002D5_BEST_SCORE_chart_0-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart0_68547"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart0_68547.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show active" id="problemStatistic_example-002Ddata-002D5_BEST_SCORE_chart_1-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart1_88319"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart1_88319.js"></script>
+    </div>
+                </div>
+                <div class="tab-pane show" id="problemStatistic_example-002Ddata-002D5_BEST_SCORE_chart_2-tab-pane">
+    <div class="chart-container mb-2">
+        <canvas id="chart_bestScoreProblemStatisticChart2_ccfb1"></canvas>
+        <script async src="website/js/bestScoreProblemStatisticChart2_ccfb1.js"></script>
+    </div>
+                </div>
+        </div>
+        <ul class="nav nav-pills justify-content-center mb-2">
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D5_BEST_SCORE_chart_0-tab-pane" type="button">Hard Score</button></li>
+                <li><button class="btn-secondary nav-link active" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D5_BEST_SCORE_chart_1-tab-pane" type="button">Medium Score</button></li>
+                <li><button class="btn-secondary nav-link" data-bs-toggle="pill" data-bs-target="#problemStatistic_example-002Ddata-002D5_BEST_SCORE_chart_2-tab-pane" type="button">Soft Score</button></li>
+        </ul>
+    </div>
+                                            <span>CSV files per solver:</span>
+                                            <div class="btn-group">
+                                                    <button class="btn" onclick="window.location.href='example-data-5/Hill Climbing/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-5/Tabu Search 500 - 1000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-5/Tabu Search 500 - 5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-5/Tabu Search 1000 - 5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-5/Simulated Annealing 0-1000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-5/Simulated Annealing 1-5000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-5/Simulated Annealing 2-1000-10000/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-5/Late Acceptance 200/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-5/Late Acceptance 400/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                                    <button class="btn" onclick="window.location.href='example-data-5/Late Acceptance 600/sub0/BEST_SCORE.csv'"><i class="fa fa-solid fa-download"></i></button>
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <section id="singleBenchmark_example-002Ddata-002D5_Hill-002D0020Climbing">
+                            <h4>example-data-5_Hill Climbing</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D5_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00201000">
+                            <h4>example-data-5_Tabu Search 500 - 1000</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D5_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00205000">
+                            <h4>example-data-5_Tabu Search 500 - 5000</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D5_Tabu-002D0020Search-002D00201000-002D0020-002D-002D00205000">
+                            <h4>example-data-5_Tabu Search 1000 - 5000</h4>
+                                    <p>Score summary not provided.</p>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D5_Simulated-002D0020Annealing-002D00200-002D1000">
+                            <h4>example-data-5_Simulated Annealing 0-1000</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D5_Simulated-002D0020Annealing-002D00201-002D5000">
+                            <h4>example-data-5_Simulated Annealing 1-5000</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D5_Simulated-002D0020Annealing-002D00202-002D1000-002D10000">
+                            <h4>example-data-5_Simulated Annealing 2-1000-10000</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D5_Late-002D0020Acceptance-002D0020200">
+                            <h4>example-data-5_Late Acceptance 200</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D5_Late-002D0020Acceptance-002D0020400">
+                            <h4>example-data-5_Late Acceptance 400</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                        <section id="singleBenchmark_example-002Ddata-002D5_Late-002D0020Acceptance-002D0020600">
+                            <h4>example-data-5_Late Acceptance 600</h4>
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                        </section>
+                </section>
+        </section>
+
+        <section id="solverBenchmarkResult">
+            <h2>Solver benchmarks</h2>
+            <ul class="nav nav-pills justify-content-center p-2" id="solverBenchmarkResultTabs">
+                    <li class="nav-item">
+                        <button class="nav-link active" id="solverBenchmark_Hill-002D0020Climbing_config-tab" data-bs-toggle="pill" data-bs-target="#solverBenchmark_Hill-002D0020Climbing_config-tab-pane" type="button">
+                            Hill Climbing&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="solverBenchmark_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00201000_config-tab" data-bs-toggle="pill" data-bs-target="#solverBenchmark_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00201000_config-tab-pane" type="button">
+                            Tabu Search 500 - 1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="solverBenchmark_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00205000_config-tab" data-bs-toggle="pill" data-bs-target="#solverBenchmark_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00205000_config-tab-pane" type="button">
+                            Tabu Search 500 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="solverBenchmark_Tabu-002D0020Search-002D00201000-002D0020-002D-002D00205000_config-tab" data-bs-toggle="pill" data-bs-target="#solverBenchmark_Tabu-002D0020Search-002D00201000-002D0020-002D-002D00205000_config-tab-pane" type="button">
+                            Tabu Search 1000 - 5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="solverBenchmark_Simulated-002D0020Annealing-002D00200-002D1000_config-tab" data-bs-toggle="pill" data-bs-target="#solverBenchmark_Simulated-002D0020Annealing-002D00200-002D1000_config-tab-pane" type="button">
+                            Simulated Annealing 0-1000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="solverBenchmark_Simulated-002D0020Annealing-002D00201-002D5000_config-tab" data-bs-toggle="pill" data-bs-target="#solverBenchmark_Simulated-002D0020Annealing-002D00201-002D5000_config-tab-pane" type="button">
+                            Simulated Annealing 1-5000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="solverBenchmark_Simulated-002D0020Annealing-002D00202-002D1000-002D10000_config-tab" data-bs-toggle="pill" data-bs-target="#solverBenchmark_Simulated-002D0020Annealing-002D00202-002D1000-002D10000_config-tab-pane" type="button">
+                            Simulated Annealing 2-1000-10000&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="solverBenchmark_Late-002D0020Acceptance-002D0020200_config-tab" data-bs-toggle="pill" data-bs-target="#solverBenchmark_Late-002D0020Acceptance-002D0020200_config-tab-pane" type="button">
+                            Late Acceptance 200&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="solverBenchmark_Late-002D0020Acceptance-002D0020400_config-tab" data-bs-toggle="pill" data-bs-target="#solverBenchmark_Late-002D0020Acceptance-002D0020400_config-tab-pane" type="button">
+                            Late Acceptance 400&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="solverBenchmark_Late-002D0020Acceptance-002D0020600_config-tab" data-bs-toggle="pill" data-bs-target="#solverBenchmark_Late-002D0020Acceptance-002D0020600_config-tab-pane" type="button">
+                            Late Acceptance 600&nbsp;
+        <span class="badge text-bg-danger" data-toggle="tooltip" title="Failed benchmark">F</span>
+
+                        </button>
+                    </li>
+            </ul>
+            <div class="tab-content">
+                    <div class="tab-pane show active" id="solverBenchmark_Hill-002D0020Climbing_config-tab-pane">
+                        <div class="tab-content" id="solverBenchmark_Hill-002D0020Climbing_config-tabContent">
+                                <div class="alert alert-danger">
+                                    <p>2 benchmarks have failed!</p>
+                                </div>
+                            <pre class="prettyprint language-xml p-2"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;solver xmlns=&quot;https://timefold.ai/xsd/solver&quot;&gt;
+  &lt;environmentMode&gt;REPRODUCIBLE&lt;/environmentMode&gt;
+  &lt;monitoring&gt;
+    &lt;metric&gt;BEST_SCORE&lt;/metric&gt;
+  &lt;/monitoring&gt;
+  &lt;solutionClass&gt;org.example.pko2.domain.Solution&lt;/solutionClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Visit&lt;/entityClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Car&lt;/entityClass&gt;
+  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;org.example.pko2.solver.SolutionScoreCalculator&lt;/constraintProviderClass&gt;
+  &lt;/scoreDirectorFactory&gt;
+  &lt;termination&gt;
+    &lt;secondsSpentLimit&gt;5&lt;/secondsSpentLimit&gt;
+  &lt;/termination&gt;
+  &lt;constructionHeuristic/&gt;
+  &lt;localSearch&gt;
+    &lt;unionMoveSelector&gt;
+      &lt;subListChangeMoveSelector/&gt;
+      &lt;listChangeMoveSelector/&gt;
+      &lt;listSwapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;
+    &lt;acceptor&gt;
+      &lt;acceptorType&gt;HILL_CLIMBING&lt;/acceptorType&gt;
+    &lt;/acceptor&gt;
+    &lt;forager&gt;
+      &lt;acceptedCountLimit&gt;1&lt;/acceptedCountLimit&gt;
+    &lt;/forager&gt;
+  &lt;/localSearch&gt;
+&lt;/solver&gt;
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="solverBenchmark_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00201000_config-tab-pane">
+                        <div class="tab-content" id="solverBenchmark_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00201000_config-tabContent">
+                                <div class="alert alert-danger">
+                                    <p>2 benchmarks have failed!</p>
+                                </div>
+                            <pre class="prettyprint language-xml p-2"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;solver xmlns=&quot;https://timefold.ai/xsd/solver&quot;&gt;
+  &lt;environmentMode&gt;REPRODUCIBLE&lt;/environmentMode&gt;
+  &lt;monitoring&gt;
+    &lt;metric&gt;BEST_SCORE&lt;/metric&gt;
+  &lt;/monitoring&gt;
+  &lt;solutionClass&gt;org.example.pko2.domain.Solution&lt;/solutionClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Visit&lt;/entityClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Car&lt;/entityClass&gt;
+  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;org.example.pko2.solver.SolutionScoreCalculator&lt;/constraintProviderClass&gt;
+  &lt;/scoreDirectorFactory&gt;
+  &lt;termination&gt;
+    &lt;secondsSpentLimit&gt;5&lt;/secondsSpentLimit&gt;
+  &lt;/termination&gt;
+  &lt;constructionHeuristic/&gt;
+  &lt;localSearch&gt;
+    &lt;unionMoveSelector&gt;
+      &lt;subListChangeMoveSelector/&gt;
+      &lt;listChangeMoveSelector/&gt;
+      &lt;listSwapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;
+    &lt;acceptor&gt;
+      &lt;entityTabuSize&gt;500&lt;/entityTabuSize&gt;
+    &lt;/acceptor&gt;
+    &lt;forager&gt;
+      &lt;acceptedCountLimit&gt;1000&lt;/acceptedCountLimit&gt;
+    &lt;/forager&gt;
+  &lt;/localSearch&gt;
+&lt;/solver&gt;
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="solverBenchmark_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00205000_config-tab-pane">
+                        <div class="tab-content" id="solverBenchmark_Tabu-002D0020Search-002D0020500-002D0020-002D-002D00205000_config-tabContent">
+                                <div class="alert alert-danger">
+                                    <p>2 benchmarks have failed!</p>
+                                </div>
+                            <pre class="prettyprint language-xml p-2"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;solver xmlns=&quot;https://timefold.ai/xsd/solver&quot;&gt;
+  &lt;environmentMode&gt;REPRODUCIBLE&lt;/environmentMode&gt;
+  &lt;monitoring&gt;
+    &lt;metric&gt;BEST_SCORE&lt;/metric&gt;
+  &lt;/monitoring&gt;
+  &lt;solutionClass&gt;org.example.pko2.domain.Solution&lt;/solutionClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Visit&lt;/entityClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Car&lt;/entityClass&gt;
+  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;org.example.pko2.solver.SolutionScoreCalculator&lt;/constraintProviderClass&gt;
+  &lt;/scoreDirectorFactory&gt;
+  &lt;termination&gt;
+    &lt;secondsSpentLimit&gt;5&lt;/secondsSpentLimit&gt;
+  &lt;/termination&gt;
+  &lt;constructionHeuristic/&gt;
+  &lt;localSearch&gt;
+    &lt;unionMoveSelector&gt;
+      &lt;subListChangeMoveSelector/&gt;
+      &lt;listChangeMoveSelector/&gt;
+      &lt;listSwapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;
+    &lt;acceptor&gt;
+      &lt;entityTabuSize&gt;500&lt;/entityTabuSize&gt;
+    &lt;/acceptor&gt;
+    &lt;forager&gt;
+      &lt;acceptedCountLimit&gt;5000&lt;/acceptedCountLimit&gt;
+    &lt;/forager&gt;
+  &lt;/localSearch&gt;
+&lt;/solver&gt;
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="solverBenchmark_Tabu-002D0020Search-002D00201000-002D0020-002D-002D00205000_config-tab-pane">
+                        <div class="tab-content" id="solverBenchmark_Tabu-002D0020Search-002D00201000-002D0020-002D-002D00205000_config-tabContent">
+                                <div class="alert alert-danger">
+                                    <p>1 benchmarks have failed!</p>
+                                </div>
+                            <pre class="prettyprint language-xml p-2"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;solver xmlns=&quot;https://timefold.ai/xsd/solver&quot;&gt;
+  &lt;environmentMode&gt;REPRODUCIBLE&lt;/environmentMode&gt;
+  &lt;monitoring&gt;
+    &lt;metric&gt;BEST_SCORE&lt;/metric&gt;
+  &lt;/monitoring&gt;
+  &lt;solutionClass&gt;org.example.pko2.domain.Solution&lt;/solutionClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Visit&lt;/entityClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Car&lt;/entityClass&gt;
+  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;org.example.pko2.solver.SolutionScoreCalculator&lt;/constraintProviderClass&gt;
+  &lt;/scoreDirectorFactory&gt;
+  &lt;termination&gt;
+    &lt;secondsSpentLimit&gt;5&lt;/secondsSpentLimit&gt;
+  &lt;/termination&gt;
+  &lt;constructionHeuristic/&gt;
+  &lt;localSearch&gt;
+    &lt;unionMoveSelector&gt;
+      &lt;subListChangeMoveSelector/&gt;
+      &lt;listChangeMoveSelector/&gt;
+      &lt;listSwapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;
+    &lt;acceptor&gt;
+      &lt;entityTabuSize&gt;1000&lt;/entityTabuSize&gt;
+    &lt;/acceptor&gt;
+    &lt;forager&gt;
+      &lt;acceptedCountLimit&gt;5000&lt;/acceptedCountLimit&gt;
+    &lt;/forager&gt;
+  &lt;/localSearch&gt;
+&lt;/solver&gt;
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="solverBenchmark_Simulated-002D0020Annealing-002D00200-002D1000_config-tab-pane">
+                        <div class="tab-content" id="solverBenchmark_Simulated-002D0020Annealing-002D00200-002D1000_config-tabContent">
+                                <div class="alert alert-danger">
+                                    <p>2 benchmarks have failed!</p>
+                                </div>
+                            <pre class="prettyprint language-xml p-2"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;solver xmlns=&quot;https://timefold.ai/xsd/solver&quot;&gt;
+  &lt;environmentMode&gt;REPRODUCIBLE&lt;/environmentMode&gt;
+  &lt;monitoring&gt;
+    &lt;metric&gt;BEST_SCORE&lt;/metric&gt;
+  &lt;/monitoring&gt;
+  &lt;solutionClass&gt;org.example.pko2.domain.Solution&lt;/solutionClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Visit&lt;/entityClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Car&lt;/entityClass&gt;
+  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;org.example.pko2.solver.SolutionScoreCalculator&lt;/constraintProviderClass&gt;
+  &lt;/scoreDirectorFactory&gt;
+  &lt;termination&gt;
+    &lt;secondsSpentLimit&gt;5&lt;/secondsSpentLimit&gt;
+  &lt;/termination&gt;
+  &lt;constructionHeuristic/&gt;
+  &lt;localSearch&gt;
+    &lt;unionMoveSelector&gt;
+      &lt;subListChangeMoveSelector/&gt;
+      &lt;listChangeMoveSelector/&gt;
+      &lt;listSwapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;
+    &lt;acceptor&gt;
+      &lt;simulatedAnnealingStartingTemperature&gt;0hard/0medium/1000soft&lt;/simulatedAnnealingStartingTemperature&gt;
+    &lt;/acceptor&gt;
+    &lt;forager&gt;
+      &lt;acceptedCountLimit&gt;1&lt;/acceptedCountLimit&gt;
+    &lt;/forager&gt;
+  &lt;/localSearch&gt;
+&lt;/solver&gt;
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="solverBenchmark_Simulated-002D0020Annealing-002D00201-002D5000_config-tab-pane">
+                        <div class="tab-content" id="solverBenchmark_Simulated-002D0020Annealing-002D00201-002D5000_config-tabContent">
+                                <div class="alert alert-danger">
+                                    <p>2 benchmarks have failed!</p>
+                                </div>
+                            <pre class="prettyprint language-xml p-2"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;solver xmlns=&quot;https://timefold.ai/xsd/solver&quot;&gt;
+  &lt;environmentMode&gt;REPRODUCIBLE&lt;/environmentMode&gt;
+  &lt;monitoring&gt;
+    &lt;metric&gt;BEST_SCORE&lt;/metric&gt;
+  &lt;/monitoring&gt;
+  &lt;solutionClass&gt;org.example.pko2.domain.Solution&lt;/solutionClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Visit&lt;/entityClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Car&lt;/entityClass&gt;
+  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;org.example.pko2.solver.SolutionScoreCalculator&lt;/constraintProviderClass&gt;
+  &lt;/scoreDirectorFactory&gt;
+  &lt;termination&gt;
+    &lt;secondsSpentLimit&gt;5&lt;/secondsSpentLimit&gt;
+  &lt;/termination&gt;
+  &lt;constructionHeuristic/&gt;
+  &lt;localSearch&gt;
+    &lt;unionMoveSelector&gt;
+      &lt;subListChangeMoveSelector/&gt;
+      &lt;listChangeMoveSelector/&gt;
+      &lt;listSwapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;
+    &lt;acceptor&gt;
+      &lt;simulatedAnnealingStartingTemperature&gt;1hard/1000medium/5000soft&lt;/simulatedAnnealingStartingTemperature&gt;
+    &lt;/acceptor&gt;
+    &lt;forager&gt;
+      &lt;acceptedCountLimit&gt;1&lt;/acceptedCountLimit&gt;
+    &lt;/forager&gt;
+  &lt;/localSearch&gt;
+&lt;/solver&gt;
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="solverBenchmark_Simulated-002D0020Annealing-002D00202-002D1000-002D10000_config-tab-pane">
+                        <div class="tab-content" id="solverBenchmark_Simulated-002D0020Annealing-002D00202-002D1000-002D10000_config-tabContent">
+                                <div class="alert alert-danger">
+                                    <p>3 benchmarks have failed!</p>
+                                </div>
+                            <pre class="prettyprint language-xml p-2"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;solver xmlns=&quot;https://timefold.ai/xsd/solver&quot;&gt;
+  &lt;environmentMode&gt;REPRODUCIBLE&lt;/environmentMode&gt;
+  &lt;monitoring&gt;
+    &lt;metric&gt;BEST_SCORE&lt;/metric&gt;
+  &lt;/monitoring&gt;
+  &lt;solutionClass&gt;org.example.pko2.domain.Solution&lt;/solutionClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Visit&lt;/entityClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Car&lt;/entityClass&gt;
+  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;org.example.pko2.solver.SolutionScoreCalculator&lt;/constraintProviderClass&gt;
+  &lt;/scoreDirectorFactory&gt;
+  &lt;termination&gt;
+    &lt;secondsSpentLimit&gt;5&lt;/secondsSpentLimit&gt;
+  &lt;/termination&gt;
+  &lt;constructionHeuristic/&gt;
+  &lt;localSearch&gt;
+    &lt;unionMoveSelector&gt;
+      &lt;subListChangeMoveSelector/&gt;
+      &lt;listChangeMoveSelector/&gt;
+      &lt;listSwapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;
+    &lt;acceptor&gt;
+      &lt;simulatedAnnealingStartingTemperature&gt;2hard/1000medium/10000soft&lt;/simulatedAnnealingStartingTemperature&gt;
+    &lt;/acceptor&gt;
+    &lt;forager&gt;
+      &lt;acceptedCountLimit&gt;1&lt;/acceptedCountLimit&gt;
+    &lt;/forager&gt;
+  &lt;/localSearch&gt;
+&lt;/solver&gt;
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="solverBenchmark_Late-002D0020Acceptance-002D0020200_config-tab-pane">
+                        <div class="tab-content" id="solverBenchmark_Late-002D0020Acceptance-002D0020200_config-tabContent">
+                                <div class="alert alert-danger">
+                                    <p>2 benchmarks have failed!</p>
+                                </div>
+                            <pre class="prettyprint language-xml p-2"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;solver xmlns=&quot;https://timefold.ai/xsd/solver&quot;&gt;
+  &lt;environmentMode&gt;REPRODUCIBLE&lt;/environmentMode&gt;
+  &lt;monitoring&gt;
+    &lt;metric&gt;BEST_SCORE&lt;/metric&gt;
+  &lt;/monitoring&gt;
+  &lt;solutionClass&gt;org.example.pko2.domain.Solution&lt;/solutionClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Visit&lt;/entityClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Car&lt;/entityClass&gt;
+  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;org.example.pko2.solver.SolutionScoreCalculator&lt;/constraintProviderClass&gt;
+  &lt;/scoreDirectorFactory&gt;
+  &lt;termination&gt;
+    &lt;secondsSpentLimit&gt;5&lt;/secondsSpentLimit&gt;
+  &lt;/termination&gt;
+  &lt;constructionHeuristic/&gt;
+  &lt;localSearch&gt;
+    &lt;unionMoveSelector&gt;
+      &lt;subListChangeMoveSelector/&gt;
+      &lt;listChangeMoveSelector/&gt;
+      &lt;listSwapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;
+    &lt;acceptor&gt;
+      &lt;lateAcceptanceSize&gt;200&lt;/lateAcceptanceSize&gt;
+    &lt;/acceptor&gt;
+    &lt;forager&gt;
+      &lt;acceptedCountLimit&gt;1&lt;/acceptedCountLimit&gt;
+    &lt;/forager&gt;
+  &lt;/localSearch&gt;
+&lt;/solver&gt;
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="solverBenchmark_Late-002D0020Acceptance-002D0020400_config-tab-pane">
+                        <div class="tab-content" id="solverBenchmark_Late-002D0020Acceptance-002D0020400_config-tabContent">
+                                <div class="alert alert-danger">
+                                    <p>2 benchmarks have failed!</p>
+                                </div>
+                            <pre class="prettyprint language-xml p-2"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;solver xmlns=&quot;https://timefold.ai/xsd/solver&quot;&gt;
+  &lt;environmentMode&gt;REPRODUCIBLE&lt;/environmentMode&gt;
+  &lt;monitoring&gt;
+    &lt;metric&gt;BEST_SCORE&lt;/metric&gt;
+  &lt;/monitoring&gt;
+  &lt;solutionClass&gt;org.example.pko2.domain.Solution&lt;/solutionClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Visit&lt;/entityClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Car&lt;/entityClass&gt;
+  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;org.example.pko2.solver.SolutionScoreCalculator&lt;/constraintProviderClass&gt;
+  &lt;/scoreDirectorFactory&gt;
+  &lt;termination&gt;
+    &lt;secondsSpentLimit&gt;5&lt;/secondsSpentLimit&gt;
+  &lt;/termination&gt;
+  &lt;constructionHeuristic/&gt;
+  &lt;localSearch&gt;
+    &lt;unionMoveSelector&gt;
+      &lt;subListChangeMoveSelector/&gt;
+      &lt;listChangeMoveSelector/&gt;
+      &lt;listSwapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;
+    &lt;acceptor&gt;
+      &lt;lateAcceptanceSize&gt;400&lt;/lateAcceptanceSize&gt;
+    &lt;/acceptor&gt;
+    &lt;forager&gt;
+      &lt;acceptedCountLimit&gt;1&lt;/acceptedCountLimit&gt;
+    &lt;/forager&gt;
+  &lt;/localSearch&gt;
+&lt;/solver&gt;
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="solverBenchmark_Late-002D0020Acceptance-002D0020600_config-tab-pane">
+                        <div class="tab-content" id="solverBenchmark_Late-002D0020Acceptance-002D0020600_config-tabContent">
+                                <div class="alert alert-danger">
+                                    <p>3 benchmarks have failed!</p>
+                                </div>
+                            <pre class="prettyprint language-xml p-2"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;solver xmlns=&quot;https://timefold.ai/xsd/solver&quot;&gt;
+  &lt;environmentMode&gt;REPRODUCIBLE&lt;/environmentMode&gt;
+  &lt;monitoring&gt;
+    &lt;metric&gt;BEST_SCORE&lt;/metric&gt;
+  &lt;/monitoring&gt;
+  &lt;solutionClass&gt;org.example.pko2.domain.Solution&lt;/solutionClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Visit&lt;/entityClass&gt;
+  &lt;entityClass&gt;org.example.pko2.domain.Car&lt;/entityClass&gt;
+  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;org.example.pko2.solver.SolutionScoreCalculator&lt;/constraintProviderClass&gt;
+  &lt;/scoreDirectorFactory&gt;
+  &lt;termination&gt;
+    &lt;secondsSpentLimit&gt;5&lt;/secondsSpentLimit&gt;
+  &lt;/termination&gt;
+  &lt;constructionHeuristic/&gt;
+  &lt;localSearch&gt;
+    &lt;unionMoveSelector&gt;
+      &lt;subListChangeMoveSelector/&gt;
+      &lt;listChangeMoveSelector/&gt;
+      &lt;listSwapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;
+    &lt;acceptor&gt;
+      &lt;lateAcceptanceSize&gt;600&lt;/lateAcceptanceSize&gt;
+    &lt;/acceptor&gt;
+    &lt;forager&gt;
+      &lt;acceptedCountLimit&gt;1&lt;/acceptedCountLimit&gt;
+    &lt;/forager&gt;
+  &lt;/localSearch&gt;
+&lt;/solver&gt;
+</code></pre>
+                        </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="environmentInformation">
+            <h2>Environment Information</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Name</th>
+                    <td>2026-01-16_130655</td>
+                </tr>
+                <tr>
+                    <th>Aggregation</th>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <th>Failure count</th>
+                    <td>21</td>
+                </tr>
+                <tr>
+                    <th>Starting timestamp</th>
+                    <td>Jan 16, 2026, 1:06:55 PM</td>
+                </tr>
+                <tr>
+                    <th>Warm-up time spent</th>
+                        <td>0.030 s. (30 ms.)</td>
+                </tr>
+                <tr>
+                    <th>Parallel benchmark count / available processors</th>
+                        <td>1 / 16</td>
+                </tr>
+                <tr>
+                    <th>Benchmark time spent</th>
+                        <td>03:20.127 s. (200,127 ms.)</td>
+                </tr>
+                <tr>
+                    <th>Environment mode</th>
+                    <td>REPRODUCIBLE</td>
+                </tr>
+                <tr>
+                    <th>Logging level for ai.timefold.solver.core</th>
+                    <td>INFO</td>
+                </tr>
+                <tr>
+                    <th>Solver ranking class</th>
+                    <td>
+                        <span data-toggle="tooltip" title="ai.timefold.solver.benchmark.impl.ranking.TotalScoreSolverRankingComparator">
+                            TotalScoreSolverRankingComparator
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>VM max memory (as in -Xmx but lower)</th>
+                        <td>4,294,967,296 bytes</td>
+                </tr>
+                <tr>
+                    <th>Timefold Solver version</th>
+                    <td>Community Edition v1.27.0</td>
+                </tr>
+                <tr>
+                    <th>Java version</th>
+                    <td>Java 21.0.5 (Amazon.com Inc.)</td>
+                </tr>
+                <tr>
+                    <th>Java VM</th>
+                    <td>Java OpenJDK 64-Bit Server VM 21.0.5+11-LTS (Amazon.com Inc.)</td>
+                </tr>
+                <tr>
+                    <th>Operating system</th>
+                    <td>Mac OS X x86_64 15.7.3</td>
+                </tr>
+                <tr>
+                    <th>Report locale</th>
+                    <td>Unknown</td>
+                </tr>
+                <tr>
+                    <th>Report timezone</th>
+                    <td>Europe/Riga</td>
+                </tr>
+            </table>
+        </section>
+    </main>
+    <footer class="bg-black text-white-50">
+        <div class="container">
+            <div class="hstack gap-3 p-4">
+                <div class="ms-auto"><a class="text-white" href="https://timefold.ai">Timefold</a></div>
+                <div class="vr"></div>
+                <div><a class="text-white" href="https://docs.timefold.ai/timefold-solver/latest/">Documentation</a></div>
+                <div class="vr"></div>
+                <div><a class="text-white" href="https://github.com/TimefoldAI/timefold-solver">Code</a></div>
+                <div class="vr"></div>
+                <div class="me-auto"><a class="text-white" href="https://timefold.ai/support">Support</a></div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

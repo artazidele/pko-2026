@@ -7,6 +7,7 @@ import ai.timefold.solver.core.api.domain.solution.ProblemFactCollectionProperty
 import ai.timefold.solver.core.api.domain.valuerange.ValueRangeProvider;
 import ai.timefold.solver.core.api.score.buildin.hardmediumsoftlong.HardMediumSoftLongScore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,6 +46,7 @@ public class Solution {
     @ValueRangeProvider
     private List<Visit> visits = new ArrayList<>();
 
+    @JsonManagedReference
     @ProblemFactCollectionProperty
     private List<Location> locations = new ArrayList<>();
 
@@ -102,10 +104,10 @@ public class Solution {
 
         for (int i = 0; i < itemCount; i++) {
             var item = this.createItem(lastItemId++, depots.get(i % depotCount), customers.get(i % customerCount));
-            var location = this.createLocation(lastLocationId++, solution);
-            var visit = this.createSupplyVisit(lastVisitId++, item, location);
+//            var location = this.createLocation(lastLocationId++, solution);
+            var visit = this.createSupplyVisit(lastVisitId++, item, customers.get(i % customerCount).getLocation());
             solution.visits.add(visit);
-            solution.locations.add(location);
+//            solution.locations.add(location);
         }
 
         for (int i = 0; i < carCount; i++) {

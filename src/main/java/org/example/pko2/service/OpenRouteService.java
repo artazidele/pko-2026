@@ -11,6 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -39,6 +40,10 @@ public class OpenRouteService {
     }
 
     public OpenRouteServiceResponse setMatrix(List<double[]> locations) {
+        var locationSize = locations.size();
+        if (locationSize > 50) {
+            return setDefaultMatrix(locations, locationSize);
+        }
 
         OpenRouteServiceRequest request = new OpenRouteServiceRequest(locations);
 
@@ -48,5 +53,21 @@ public class OpenRouteService {
                 .retrieve()
                 .bodyToMono(OpenRouteServiceResponse.class)
                 .block();
+    }
+
+    private OpenRouteServiceResponse setDefaultMatrix(List<double[]> locations, int locationSize) {
+        var response = new OpenRouteServiceResponse();
+        double[][] distances = new double[locationSize][locationSize];
+        double[][] durations = new double[locationSize][locationSize];
+        for (int i = 0; i < locationSize; i++) {
+            for (int j = 0; j < locationSize; j++) {
+                distances[i][j] = 3000.0 + (Math.random() * 500.0);
+                durations[i][j] = 300.0 + (Math.random() * 600.0);
+            }
+        }
+        response.setDistances(distances);
+        response.setDurations(durations);
+
+        return response;
     }
 }

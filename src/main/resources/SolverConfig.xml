@@ -25,10 +25,10 @@
             <listSwapMoveSelector />
         </unionMoveSelector>
         <acceptor>
-            <entityTabuSize>500</entityTabuSize>
+            <simulatedAnnealingStartingTemperature>0hard/0medium/1000soft</simulatedAnnealingStartingTemperature>
         </acceptor>
         <forager>
-            <acceptedCountLimit>5000</acceptedCountLimit>
+            <acceptedCountLimit>1</acceptedCountLimit>
         </forager>
     </localSearch>
 </solver>

@@ -1,0 +1,137 @@
+
+var chart_scoreCalculationSpeedSummaryChart_b5b52 = new Chart(document.getElementById('chart_scoreCalculationSpeedSummaryChart_b5b52'), {
+    type: 'line',
+    data: {
+        datasets: [
+            {
+                  label: 'Hill Climbing (favorite)',
+                    borderWidth: 4
+,
+                  data: [
+                    {x: 78761812, y: 19668}, {x: 164632584, y: 14225}, {x: 259200590, y: 10605}, {x: 359743372, y: 8462}, {x: 464848945, y: 7458}
+                  ]
+                }, 
+{
+                  label: 'Tabu Search 500 - 1000 (favorite)',
+                    borderWidth: 4
+,
+                  data: [
+                    {x: 78761812, y: 19645}, {x: 164632584, y: 13457}, {x: 259200590, y: 10735}, {x: 359743372, y: 7632}, {x: 464848945, y: 6745}
+                  ]
+                }, 
+{
+                  label: 'Tabu Search 500 - 5000 (favorite)',
+                    borderWidth: 4
+,
+                  data: [
+                    {x: 78761812, y: 21075}, {x: 164632584, y: 14425}, {x: 259200590, y: 10484}, {x: 359743372, y: 7651}, {x: 464848945, y: 6741}
+                  ]
+                }, 
+{
+                  label: 'Tabu Search 1000 - 5000 (favorite)',
+                    borderWidth: 4
+,
+                  data: [
+                    {x: 78761812, y: 19687}, {x: 164632584, y: 14485}, {x: 259200590, y: 10457}, {x: 359743372, y: 7646}, {x: 464848945, y: 6517}
+                  ]
+                }, 
+{
+                  label: 'Late Acceptance 200 (favorite)',
+                    borderWidth: 4
+,
+                  data: [
+                    {x: 78761812, y: 18661}, {x: 164632584, y: 14211}, {x: 259200590, y: 10487}, {x: 359743372, y: 8336}, {x: 464848945, y: 7147}
+                  ]
+                }, 
+{
+                  label: 'Late Acceptance 400 (favorite)',
+                    borderWidth: 4
+,
+                  data: [
+                    {x: 78761812, y: 19177}, {x: 164632584, y: 14157}, {x: 259200590, y: 10459}, {x: 359743372, y: 8436}, {x: 464848945, y: 7024}
+                  ]
+                }, 
+{
+                  label: 'Late Acceptance 600 (favorite)',
+                    borderWidth: 4
+,
+                  data: [
+                    {x: 78761812, y: 20060}, {x: 164632584, y: 14250}, {x: 259200590, y: 10567}, {x: 359743372, y: 8456}, {x: 464848945, y: 7234}
+                  ]
+                }
+        ]
+    },
+    options: {
+        animation: false,
+        responsive: true,
+        maintainAspectRatio: false,
+        spanGaps: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Score calculation speed summary (higher is better)'
+            },
+            tooltip: {
+                callbacks: {
+                }
+            }
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Problem scale'
+                },
+                ticks: {
+                        stepSize: 10000000
+                        
+                },
+                suggestedMin: 0,
+                suggestedMax: 464848945,
+                type: 'linear',
+                display: true
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Score calculation speed per second'
+                },
+                ticks: {
+                        stepSize: 100
+                        
+                },
+                type: 'linear',
+                display: true
+            }
+        },
+watermark: {
+    image: "website/img/timefold-logo-stacked-positive.svg",
+    x: 15,
+    y: 15,
+    width: 48,
+    height: 50,
+    opacity: 0.1,
+    alignX: "right",
+    alignY: "bottom",
+    alignToChartArea: true,
+    position: "front",
+}    },
+plugins: [{ 
+    id: 'customPlugin',
+    beforeDraw: (chart, args, options) => {
+          const ctx = chart.canvas.getContext('2d');
+          ctx.save();
+          ctx.globalCompositeOperation = 'destination-over';
+          ctx.fillStyle = 'white';
+          ctx.fillRect(0, 0, chart.canvas.width, chart.canvas.height);
+          ctx.restore();
+    }
+}]
+});
+
+window.addEventListener('beforeprint', () => {
+  chart_scoreCalculationSpeedSummaryChart_b5b52.resize(1280, 720);
+});
+window.addEventListener('afterprint', () => {
+  chart_scoreCalculationSpeedSummaryChart_b5b52.resize();
+});

@@ -5,7 +5,9 @@
 
     <inheritedSolverBenchmark>
         <solver>
-            <environmentMode>REPRODUCIBLE</environmentMode>
+<!--            <environmentMode>REPRODUCIBLE</environmentMode>-->
+<!--            <environmentMode>FAST_ASSERT</environmentMode>-->
+            <environmentMode>FULL_ASSERT</environmentMode>
             <!-- Define the model -->
             <solutionClass>org.example.pko2.domain.Solution</solutionClass>
             <entityClass>org.example.pko2.domain.Visit</entityClass>
@@ -107,7 +109,7 @@
         </solver>
     </solverBenchmark>
     <solverBenchmark>
-        <name>Simulated Annealing 0-1000</name>
+        <name>Simulated Annealing 0-0-1000</name>
         <solver>
             <localSearch>
                 <unionMoveSelector>
@@ -116,7 +118,7 @@
                     <listSwapMoveSelector />
                 </unionMoveSelector>
                 <acceptor>
-                    <simulatedAnnealingStartingTemperature>0hard/1000soft</simulatedAnnealingStartingTemperature>
+                    <simulatedAnnealingStartingTemperature>0hard/0medium/1000soft</simulatedAnnealingStartingTemperature>
                 </acceptor>
                 <forager>
                     <acceptedCountLimit>1</acceptedCountLimit>
@@ -125,7 +127,7 @@
         </solver>
     </solverBenchmark>
     <solverBenchmark>
-        <name>Simulated Annealing 1-5000</name>
+        <name>Simulated Annealing 1-1000-5000</name>
         <solver>
             <localSearch>
                 <unionMoveSelector>
@@ -134,7 +136,7 @@
                     <listSwapMoveSelector />
                 </unionMoveSelector>
                 <acceptor>
-                    <simulatedAnnealingStartingTemperature>1hard/5000soft</simulatedAnnealingStartingTemperature>
+                    <simulatedAnnealingStartingTemperature>1hard/1000medium/5000soft</simulatedAnnealingStartingTemperature>
                 </acceptor>
                 <forager>
                     <acceptedCountLimit>1</acceptedCountLimit>
@@ -143,7 +145,7 @@
         </solver>
     </solverBenchmark>
     <solverBenchmark>
-        <name>Simulated Annealing 2-10000</name>
+        <name>Simulated Annealing 2-1000-10000</name>
         <solver>
             <localSearch>
                 <unionMoveSelector>
@@ -152,7 +154,7 @@
                     <listSwapMoveSelector />
                 </unionMoveSelector>
                 <acceptor>
-                    <simulatedAnnealingStartingTemperature>2hard/10000soft</simulatedAnnealingStartingTemperature>
+                    <simulatedAnnealingStartingTemperature>2hard/1000medium/10000soft</simulatedAnnealingStartingTemperature>
                 </acceptor>
                 <forager>
                     <acceptedCountLimit>1</acceptedCountLimit>

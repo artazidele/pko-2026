@@ -50,7 +50,7 @@ public class SolutionScoreCalculator implements ConstraintProvider {
 
     public Constraint possibleMileageExceeded(ConstraintFactory factory) {
         return factory.forEach(Car.class)
-                .filter(car -> car.getTotalDistanceWithoutGarage() > car.getPossibleMileage())
+                .filter(car -> car.getTotalDistanceWithoutGarage() - car.getPossibleMileage() > 0)
                 .penalizeLong(HardMediumSoftLongScore.ONE_MEDIUM,
                         car -> (long) (car.getTotalDistanceWithoutGarage() - car.getPossibleMileage()))
                 .asConstraint(POSSIBLE_MILEAGE_EXCEEDED);
